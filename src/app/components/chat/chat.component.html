@@ -1,0 +1,50 @@
+<div class="main-container">
+    <div class="chat-header">
+        <mat-icon class="back" (click)="onBack()">keyboard_arrow_left</mat-icon>
+        <div *ngIf="!chatOpenFlag" class="tag">Recents</div>
+        <div *ngIf="chatOpenFlag" class="tag" style="font-size: inherit !important;">
+            <img width="22px" *ngIf="chatProfileImage === ''" height="22px" src="../../../assets/user_avatar.png"
+                alt="">
+            <img width="22px" *ngIf="chatProfileImage !== ''" height="22px" src="{{chatProfileImage}}" alt="">
+            {{chatProfileName}}
+        </div>
+        <mat-icon *ngIf="!chatOpenFlag" (click)="onClose()" class="close">close</mat-icon>
+        <mat-icon *ngIf="chatOpenFlag" class="close video">video_call</mat-icon>
+    </div>
+
+    <div class="chat-main">
+        <div class="chat-profile" *ngFor="let p of profiles; let i=index" (click)="onChatSelect(i)">
+            <div class="image">
+                <img width="40px" *ngIf="p.doctorProfilePicUrl === ''" height="40px"
+                    src="../../../assets/user_avatar.png" alt="">
+                <img width="40px" *ngIf="p.doctorProfilePicUrl !== ''" height="40px" src="{{p.doctorProfilePicUrl}}"
+                    alt="">
+            </div>
+
+            <div class="profile-body">
+                <div class="name">
+                    <strong>
+                        <p style="margin: 0;" *ngIf="p.doctorMessageCount > 0">
+                            <span [matBadge]="p.doctorMessageCount" matBadgeSize="medium" matBadgePosition="before"
+                                matBadgeColor="accent" matBadgeOverlap="false">{{p.doctorName}}</span>
+                        </p>
+                        <p *ngIf="p.doctorMessageCount === 0" style="margin: 0;">{{p.doctorName}}</p>
+                    </strong>
+                </div>
+                <div class="profile-message">
+                    {{p.lastMessage === '' ? "No Messages yet" : p.lastMessage}}
+                </div>
+            </div>
+
+            <div class="profile-chat-time">
+                <div class="chat-time">{{p.lastUpdatedDate.toDate() | date: 'shortDate' }}</div>
+                <!-- *ngIf="p.lastUpdatedDate.toDate() === dateToday.getDate()" -->
+                <!-- <div class="chat-time" *ngIf="p.lastUpdatedDate.toDate() === dateYesterday.getDate()">Yesterday</div> -->
+                <!-- <div class="chat-time" *ngIf="p.lastUpdatedDate.getFullYear() === dateToday.getFullYear()">{{p.lastUpdatedDate.toDate() | date: 'shortDate' }}</div> -->
+            </div>
+        </div>
+
+        <app-chat-body class="chat-display" [@chatWin] [chatDataPassed]="chatDataToPass"
+            [chatMessagesToPassed]="chatMessagesToPass" *ngIf="chatOpenFlag"></app-chat-body>
+    </div>
+</div>

@@ -1,0 +1,59 @@
+<div class="chat-body-container">
+    <div class="display-chat">
+        <ol class="display-messages">
+            <!--#scrollMe [scrollTop]="scrollMe.scrollHeight"-->
+
+            <li *ngFor="let m of chatMessagesToPassed; let i=index" [ngClass]="addClassToMessages(i)" (click)="onMsgTextClick(i)">
+                <!--[ngClass]="{'outgoing-message': m.senderId === chatDataPassed.userId , 'incoming-message': m.senderId !== chatDataPassed.userId}"-->
+                <div class="avtar">
+                    <img *ngIf="chatDataPassed.userProfilePicUrl === '' && m.senderId !== chatDataPassed.doctorId"
+                        src="../../../../assets/user_avatar.png" width="20px" height="20px" class="av-img" alt="">
+                    <img *ngIf="chatDataPassed.userProfilePicUrl !== '' && m.senderId !== chatDataPassed.doctorId"
+                        src="{{chatDataPassed.userProfilePicUrl}}" width="20px" height="20px" class="av-img" alt="">
+                </div>
+
+                <div class="msg-body" [ngStyle]="{'max-width': (m.type === 'image') ? '80%' : '60%'}">
+                    <p class="msg-text" *ngIf="m.type === 'text' && m.type !== 'image'">
+                        {{m.body}}
+                    </p>
+                    <p class="msg-text" *ngIf="m.type === 'image' && m.type !== 'text'">
+                        <img height="300px" width="260px" src="{{m.mediaUrl}}" alt="The image is not available!"
+                            style="cursor: pointer; object-fit: cover" (click)="onMsgClick(i)">
+                    </p>
+                    <time class="msg-time">{{m.createdDate.toDate() | date:'shortTime'}}</time>
+                </div>
+            </li>
+
+        </ol>
+        <div class="emoji-container" *ngIf="showEmojis">
+            <emoji-mart (emojiClick)="addEmoji($event)"></emoji-mart>
+        </div>
+
+        <div class="loading-screen" *ngIf="progress">
+            <mat-spinner strokeWidth="8" [diameter]="60"></mat-spinner>
+        </div>
+    </div>
+    <div>
+        <form class="chat-footer" (ngSubmit)="onMsgSend()">
+            <button mat-button style="padding: 0; min-width: 0px;" [matMenuTriggerFor]="aboveMenu">
+                <mat-icon class="menu-icon">menu</mat-icon>
+            </button>
+            <mat-menu #aboveMenu="matMenu" yPosition="above">
+                <label for="img-in" mat-menu-item>
+                    <mat-icon> attach_file</mat-icon> Add image
+                </label>
+                <input type="file" id="img-in" style="display: none;" (change)="onImageAdd($event)">
+            </mat-menu>
+            <div class="menu-box">
+                <div (click)="showEmoji()">😄</div>
+            </div>
+            <textarea cols="1" rows="1" (keydown.enter)="onKeydown($event)" (keyup.enter)="onMsgSend()"
+                autocomplete="off" class="chat-input" #textInput [(ngModel)]="inputMessage" name="inputMessage"
+                type="text" placeholder="Send a message"></textarea>
+            <label for="snd-btn" class="send-btn" (click)="onMsgSend()">
+                <!--(keydown.enter)="onMsgSend();false;inputMessage='';"-->
+                <mat-icon class="send-icon">send</mat-icon>
+            </label>
+        </form>
+    </div>
+</div>

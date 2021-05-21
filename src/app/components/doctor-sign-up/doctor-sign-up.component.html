@@ -1,0 +1,81 @@
+<div class="sign-container">
+    <form [formGroup]="newUserForm" (ngSubmit)="onRegister()">
+        <div class="sign-img">
+            <div class="register-text">Register as Doctor</div>
+        </div>
+
+        <div class="input-container">
+            <div class="sign-form-container">
+
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-icon matPrefix>account_circle</mat-icon>
+                    <mat-label>Full Name</mat-label>
+                    <input matInput type="text" formControlName="name" required>
+                    <mat-error *ngIf="formErrors.name">{{formErrors.name}}</mat-error>
+                    <mat-error *ngIf="newUserForm.controls.name.pristine">
+                        Name is Required
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-icon matPrefix>mail</mat-icon>
+                    <mat-label>Email Address</mat-label>
+                    <input matInput type="email" formControlName="email" required>
+                    <mat-error *ngIf="formErrors.email">{{formErrors.email}}</mat-error>
+                    <mat-error *ngIf="newUserForm.controls.email.pristine">
+                        Email is Required
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <span matPrefix class="material-icons">
+                        lock
+                    </span>
+                    <mat-label>Password</mat-label>
+                    <input matInput [type]="hidePass ? 'password' : 'text'" formControlName="password" required>
+                    <mat-icon class="visible-curs" matSuffix (click)="hidePass = !hidePass">
+                        {{hidePass ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    <mat-error *ngIf="formErrors.password">{{formErrors.password}}</mat-error>
+                    <mat-error *ngIf="newUserForm.controls.password.pristine">
+                        Password is Required
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <span matPrefix class="material-icons">
+                        lock
+                    </span>
+                    <mat-label>Re-enter Password</mat-label>
+                    <input matInput [type]="hideConPass ? 'password' : 'text'" [errorStateMatcher]="matcher"
+                        formControlName="confirmPassword" required>
+                    <mat-icon class="visible-curs" matSuffix (click)="hideConPass = !hideConPass">
+                        {{hideConPass ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    <mat-error
+                        *ngIf="newUserForm.controls.confirmPassword.pristine && !newUserForm.hasError('notSame')">
+                        Re-enter password cannot be empty!
+                    </mat-error>
+                    <mat-error *ngIf="newUserForm.hasError('notSame')">
+                        Passwords do not match
+                    </mat-error>
+                </mat-form-field>
+
+            </div>
+
+            <!-- <div class="sign-up">
+                <div class="text-sign" (click)="toSignUp()">New here? Sign Up</div>
+                <div class="text-muted">Or</div>
+                <div class="text-sign">Forgot Password?</div>
+            </div> -->
+
+            <!-- <label for="sub-btn" class="login-circle">
+                <mat-icon>keyboard_arrow_right</mat-icon>
+                <mat-spinner *ngIf="loading" strokeWidth="5" [diameter]="30"></mat-spinner>
+            </label>
+            <button class="login-btn" id="sub-btn" type="submit"></button> -->
+        </div>
+        <button mat-button type="submit" [class.add-pad]="load" class="reg-btn">
+            <mat-spinner *ngIf="load" strokeWidth="4" [diameter]="20"></mat-spinner>
+            {{!load ? 'Register' : ''}}
+        </button>
+    </form>
+</div>

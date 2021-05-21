@@ -1,0 +1,33 @@
+mat-sidenav{
+    min-width: 250px;
+    max-width: auto;
+    border: none;
+}
+
+mat-list-item{
+    cursor: pointer;
+    height: 50px;
+    transition: 0.25s ease-in-out;
+}
+
+mat-list-item:hover{
+    margin-bottom: 10px;
+    background-color: rgba(0, 0, 0, 0.055);
+}
+
+mat-list-item mat-icon{
+    transition: 0.35s ease-in-out;
+    color: rgba(20, 128, 251, 0.5) !important;
+}
+
+mat-list-item:hover{
+    color: #147EFB !important;
+}
+
+mat-sidenav-content{
+    height: 100vh;
+}
+
+mat-sidenav-content::-webkit-scrollbar{
+    display: none;
+}

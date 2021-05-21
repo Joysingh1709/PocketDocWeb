@@ -1,0 +1,437 @@
+.chat-body-container{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+}
+
+p{
+    margin: 0;
+}
+textarea {
+    resize: none;
+}
+
+.display-chat{
+    flex-grow: 1;
+    position: relative;
+    height: 88.9%;
+    display: flex;
+    flex-direction: column-reverse;
+    overflow-x: hidden;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    overscroll-behavior-y: contain;
+}
+
+.display-chat::-webkit-scrollbar {
+    display: none;
+}
+
+.avtar{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.av-img{
+    border-radius: 50%;
+    border: 1px solid #bbbbbb96;
+}
+
+/* Incomming message css */
+
+.incoming-message .msg-body{
+    text-align: left;
+    flex-direction: column;
+    /* border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+    border-bottom-right-radius: 15px; */
+}
+
+.incoming-message-new .msg-body{
+    text-align: left;
+    flex-direction: column;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-top-left-radius: 15px;
+}
+
+.incoming-message-top .msg-body{
+    margin-left: 32px;
+    text-align: left;
+    flex-direction: column;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-top-left-radius: 15px;
+}
+
+.incoming-message-between .msg-body{
+    text-align: left;
+    margin-left: 32px;
+    flex-direction: column;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.incoming-message-last .msg-body{
+    text-align: left;
+    flex-direction: column;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+.incoming-message .msg-time{
+    left: -5px;
+    bottom: -10px;
+    /* padding-top: 8px; */
+    text-align: right;
+    color: #A3A3A3;
+}
+
+.incoming-message-new .msg-time{
+    left: -5px;
+    bottom: -10px;
+    /* padding-top: 8px; */
+    text-align: right;
+    color: #A3A3A3;
+}
+
+.incoming-message-top .msg-time{
+    left: -5px;
+    bottom: -10px;
+    /* padding-top: 8px; */
+    text-align: right;
+    color: #A3A3A3;
+}
+
+.incoming-message-between .msg-time{
+    left: -5px;
+    bottom: -10px;
+    /* padding-top: 8px; */
+    text-align: right;
+    color: #A3A3A3;
+}
+
+.incoming-message-last .msg-time{
+    left: -5px;
+    bottom: -10px;
+    /* padding-top: 8px; */
+    text-align: right;
+    color: #A3A3A3;
+}
+.incoming-message .avtar{
+    margin-right: 10px;
+}
+
+.incoming-message-new .avtar{
+    margin-right: 10px;
+}
+
+.incoming-message-top .avtar{
+    display: none !important;
+    margin-right: 10px;
+}
+
+.incoming-message-between .avtar{
+    display: none !important;
+    margin-right: 10px;
+}
+
+.incoming-message-last .avtar{
+    margin-right: 10px;
+}
+
+
+/* Outgoing message css */
+
+.outgoing-message .msg-body{
+    text-align: right;
+    flex-direction: column;
+    flex-shrink: 0;
+    flex-grow: 0;
+    /* border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px; */
+    background-color: #1480fb;
+    color: #FFFFFF;
+}
+
+.outgoing-message-new .msg-body{
+    text-align: right;
+    flex-direction: column;
+    flex-shrink: 0;
+    flex-grow: 0;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    background-color: #1480fb;
+    color: #FFFFFF;
+}
+
+.outgoing-message-top .msg-body{
+    text-align: right;
+    flex-direction: column;
+    flex-shrink: 0;
+    flex-grow: 0;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    background-color: #1480fb;
+    color: #FFFFFF;
+}
+
+.outgoing-message-between .msg-body{
+    text-align: right;
+    flex-direction: column;
+    flex-shrink: 0;
+    flex-grow: 0;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    background-color: #1480fb;
+    color: #FFFFFF;
+}
+
+.outgoing-message-last .msg-body{
+    text-align: right;
+    flex-direction: column;
+    flex-shrink: 0;
+    flex-grow: 0;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    background-color: #1480fb;
+    color: #FFFFFF;
+}
+
+
+.outgoing-message .msg-time{
+    left: 4px;
+    bottom: -10px;
+    color: #FFFFFF;
+}
+
+.outgoing-message-new .msg-time{
+    left: 4px;
+    bottom: -10px;
+    color: #FFFFFF;
+}
+
+.outgoing-message-top .msg-time{
+    left: 4px;
+    bottom: -10px;
+    color: #FFFFFF;
+}
+
+.outgoing-message-between .msg-time{
+    left: 4px;
+    bottom: -10px;
+    color: #FFFFFF;
+}
+
+.outgoing-message-last .msg-time{
+    left: 4px;
+    bottom: -10px;
+    color: #FFFFFF;
+}
+
+.outgoing-message .avtar{
+    display: none;
+    /* margin-left: 10px; */
+}
+
+.outgoing-message-new .avtar{
+    display: none;
+    /* margin-left: 10px; */
+}
+
+.outgoing-message-top .avtar{
+    display: none;
+    /* margin-left: 10px; */
+}
+
+.outgoing-message-between .avtar{
+    display: none;
+    /* margin-left: 10px; */
+}
+
+.outgoing-message-last .avtar{
+    display: none;
+    /* margin-left: 10px; */
+}
+
+.msg-time{
+    position: relative;
+    font-size: 0.6rem;
+}
+
+.msg-body{
+    /* width: 100px; */
+    word-break: break-word;
+    max-width: 50%;
+    width: auto;
+    
+    background: #eef0f3;
+    padding: 10px 14px;
+    display: -webkit-box;
+    overflow: hidden;
+    display: flex;
+}
+
+.display-messages{
+    display: flex;
+    padding: 0 15px 5px 15px;
+    border: 0;
+    height: auto;
+    flex-direction: column;
+    scroll-behavior: smooth;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: relative;
+}
+
+.incoming-message-top{
+    margin-top: 10px !important;
+}
+
+.outgoing-message-top{
+    margin-top: 10px !important;
+}
+
+.outgoing-message-new{
+    margin-top: 10px !important;
+}
+
+.incoming-message-new{
+    margin-top: 10px !important;
+}
+
+.incoming-message{
+    display: flex;
+    flex-direction: row;
+    color: #000;
+    margin-top: 4px;
+}
+
+.outgoing-message{
+    display: flex;
+    flex-direction: row-reverse;
+    color: #000;
+    margin-top: 4px;
+}
+
+.chat-footer{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    background-color: #FFFFFF;
+    bottom: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    border-top: 1px solid #DCDCDC;
+}
+
+.menu-icon{
+    cursor: pointer;
+    color: #1480fb;
+    padding-left: 10px;
+    padding-right: 5px;
+}
+
+.send-icon{
+    color: #FFFFFF;
+    width: 18px;
+    height: 20px;
+    font-size: 20px;
+}
+
+.send-btn{
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin-right: 5px;
+    background-color: #1480fb;
+}
+
+.chat-input{
+    border: none;
+    padding: 10px 10px 0px 10px;
+    width: 70%;
+    height: 30px;
+    font-size: 16px;
+    outline: none;
+    font: 400 14px/20px Roboto, "Helvetica Neue", sans-serif;
+    letter-spacing: normal;
+}
+
+.chat-input::-webkit-scrollbar{
+    display: none;
+}
+.emoji-container::-webkit-scrollbar{
+    display: none;
+}
+
+emoji-mart::ng-deep .emoji-mart-scroll::-webkit-scrollbar{
+    display: none;
+}
+
+.emoji-container{
+    width: 360px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    height: 300px;
+    position: fixed;
+    margin: auto;
+    overflow-y: scroll;
+}
+
+.menu-box{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;    
+}
+
+.menu-box mat-icon {
+    padding: 0px 5px 0px 5px;
+    cursor: pointer;
+}
+
+.menu-box div {
+    cursor: pointer;
+}
+
+.loading-screen{
+    color: #FFFFFF;
+    width: 360px;
+    height: 409px;
+    background: rgb(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+}
+
+.mat-spinner::ng-deep circle {
+    stroke: #fff;
+}

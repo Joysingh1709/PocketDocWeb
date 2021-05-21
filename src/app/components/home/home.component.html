@@ -1,0 +1,82 @@
+<div class="body">
+    <div class="title-container">
+
+        <div class="nav-container">
+            <div class="nav-left">
+            </div>
+
+            <div class="nav-right">
+                <div class="nav-menu">
+                    <div class="nav-item">Contact</div>
+                    <div class="nav-item">Download</div>
+                    <div class="nav-item">Blog</div>
+                    <div class="nav-item">Doctor?</div>
+                    <div class="nav-item">Services</div>
+                    <div class="nav-item">Home</div>
+                </div>
+                <button mat-button routerLink="/login">Login</button>
+            </div>
+        </div>
+        <img class="nav-logo" src="../../../assets/ic_launcher_round.png" width="100px" height="100px" alt="Logo">
+
+        <div class="title-text-container" [@fadeIn] [style.opacity]="opc">
+            <h1 class="welcome-title">
+                Welcome to Pocket Doc!
+            </h1>
+            <p style="font-size: 1rem;">Pocket Doc is a complete solution for one's personal health.</p>
+        </div>
+
+        <div class="anime" [style.opacity]="opc" [style.transform]="transformAnime">
+            <ng-lottie [options]="options" [styles]="styles" (animationCreated)="animationCreated($event)" width="600px"
+                height="500px"></ng-lottie>
+        </div>
+    </div>
+
+    <div id="section1" class="sec1">
+        <!-- class="animate__animated animate__fadeInUp" -->
+        <!--[class.sec1.animate__backInUp]="!sec1Bg" [class.bgAfter]="sec1Bg"-->
+        <div id="section1in" [@winComeGo] *ngIf="showSecIn">
+            <div class="section-text">
+                <div class="pdoc">
+                    <h3><strong style="color: #147EFB;">PocketDoc</strong> is a Complete Medical Solutions in One Place
+                    </h3>
+                    <p>An innovative approach to treatment </p>
+                </div>
+            </div>
+            <img src="../../../assets/image-02.png" width="500px" height="500px" alt="">
+        </div>
+    </div>
+
+    <div id="section1-2" class="sec1-2">
+        <div class="sec-1-2-item animate__animated animate__fadeInUp">
+            <ng-lottie [options]="sectionLottie1" width="180px" height="180px"
+                (animationCreated)="animationCreated($event)"></ng-lottie>
+            <div class="sec-1-2-item-number">
+                4,520
+            </div>
+            <div class="sec-1-2-item-text">
+                Happy Users
+            </div>
+        </div>
+        <div class="sec-1-2-item animate__animated animate__fadeInUp">
+            <ng-lottie [options]="sectionLottie1" width="180px" height="180px"
+                (animationCreated)="animationCreated($event)"></ng-lottie>
+        </div>
+        <div class="sec-1-2-item animate__animated animate__fadeInUp">
+            <ng-lottie [options]="sectionLottie1" width="180px" height="180px"
+                (animationCreated)="animationCreated($event)"></ng-lottie>
+        </div>
+        <div class="sec-1-2-item animate__animated animate__fadeInUp">
+            <ng-lottie [options]="sectionLottie1" width="180px" height="180px"
+                (animationCreated)="animationCreated($event)"></ng-lottie>
+        </div>
+    </div>
+
+    <!-- <div id="section2" class="sec2">
+
+    </div> -->
+
+    <ng-lottie [options]="options1" [styles]="styles1" (animationCreated)="animationCreated($event)" width="600px"
+        height="500px"></ng-lottie>
+
+</div>

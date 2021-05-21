@@ -1,0 +1,226 @@
+.title-container{
+    width: 100%;
+    height: 320px;
+    background-color: #147EFB;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title-text-container{
+    width: 80%;
+    margin-top: 60px;
+}
+
+.welcome-title{
+    font-size: 2.5em !important;
+}
+
+.profile-btn{
+    width: auto;
+    height: 45px;
+    background-color: #FFF;
+    color: #147EFB;
+    border-radius: 4rem;
+    text-align: center;
+    padding: 0px 14px;
+}
+
+.nav-btn{    
+    margin-left: 10px;
+    margin-right: 10px;
+    background-color: #FFF;
+    color: #147EFB;
+    border-radius: 0.6rem;
+}
+
+.nav-btn mat-icon{
+    height: 26px;
+}
+
+/* navigation css */
+
+.nav-container{
+    width: 100%;
+    top: 0;
+    align-items: center;
+    padding: 10px 0px;
+    background-color: #147EFB;
+    color: #ffffff;
+    display: flex;
+    flex-direction: row;
+}
+
+.nav-brand{
+    font-size: 1.2rem;
+    margin-left: 10px;
+}
+
+.nav-left{
+    display: flex;
+    flex-direction: row;
+    align-items: center;        
+    width: 40%;
+    height: 100%;
+}
+
+.nav-logo{
+    position: absolute;
+    left: 32px;
+    top: 102px;
+}
+
+.nav-right{
+    padding-right: 40px;
+    width: 60%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.nav-menu{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.nav-item{
+    cursor: pointer;
+    margin: 0px 15px 0px 15px;
+    border-bottom: 2px transparent inset;
+    transition: all 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+}
+
+.menu-btn mat-icon{
+    font-size: 2.5rem;
+    color: #ffffff;
+    line-height: 1;
+    width: 50px;
+    height: 40px;
+}
+
+.notif > button > mat-icon:hover{
+    content: notifications;
+}
+
+.notif-title{
+    width: 100%;
+    font-size: 1rem;
+    font-weight: 500;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 8px;
+}
+
+.notif-title :last-child{
+    margin-right: 16px;
+    color: #1480fbb4;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.notif-title :last-child:hover{
+    color: #1480fb;
+}
+
+.notif-title :first-child{
+    margin-left: 16px;
+}
+
+.main-notif{
+    border-radius: 4px;
+    margin: 0px 10px;
+    background-color: #1480fbd8;
+    color: #FFFFFF;
+    align-items: center;
+    line-height: 1;
+    display: flex;
+    flex-direction: row;
+}
+
+.main-notif:hover{
+    background-color: #147EFB;
+}
+
+.main-notif mat-icon {
+    color: #FFFFFF;
+}
+
+.notif-body{
+    justify-content: space-around;
+    color: #FFFFFF;
+    display: flex;
+    line-height: 1;
+    height: 100%;
+    flex-direction: column;
+}
+
+.notif-btn mat-icon{
+    transition: 0.2s ease-in-out;
+}
+
+
+.menu-btn{
+    display: none;
+    width: 50px;
+    height: 50px;
+    margin-right: 30px;
+}
+
+.nav-item:hover{
+    border-bottom: 2px #ffffff inset;
+}
+
+/* media queries */
+
+/* // Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575px)   {
+    .nav-menu{
+        display: none;
+    }
+    .menu-btn{
+        display: block;
+        font-weight: normal;
+    }
+    .nav-right{
+        justify-content: flex-end;
+    }
+}
+
+/* // Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767px){
+    .nav-menu{
+        display: none;
+    }
+    .menu-btn{
+        display: block;
+        font-weight: normal;
+    }
+    .nav-right{
+        justify-content: flex-end;
+    }
+}
+
+/* // Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991px)   {
+
+
+}
+
+/* // Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199px)   {
+
+}
+
+/* // Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px)  {
+
+}

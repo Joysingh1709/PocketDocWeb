@@ -1,0 +1,48 @@
+.text{
+    text-align: center;
+    /* position: relative; */
+    /* width: 170px; */
+    /* top: -193px;
+    left: 254px; */
+    color: #000;
+    font-size: 1.2rem;
+}
+
+.header{
+    display: flex;
+    height: 150px;
+    justify-content: space-between;
+    flex-direction: row;    
+    align-items: center;
+}
+
+.text h2 {
+    margin: 0px 10px 10px;
+    text-align: left;
+}
+
+.text p {
+    font-size: 0.8rem;
+    margin-top: 20px;
+    color: #8b8b8b;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.fill-in-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+mat-form-field{
+    width: 200px;
+    margin-right: 10px;
+}

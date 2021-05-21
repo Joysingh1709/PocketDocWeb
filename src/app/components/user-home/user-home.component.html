@@ -1,0 +1,343 @@
+<!-- <div class="image-upload-container">
+    <input type="file" (change)="onimageUpload($event)" accept="image/*">
+</div>
+
+<div class="progress">
+    <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+</div> -->
+
+<router-outlet></router-outlet>
+
+<div class="dash-container">
+    <div class="left">
+        <strong style="margin-right: 14px;">Dashboard</strong>
+        Here are your important tasks, updates and alerts.
+    </div>
+</div>
+
+<div class="content-main-container example-headers-align">
+    <mat-expansion-panel expanded="true">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Appointments
+            </mat-panel-title>
+            <mat-panel-description>
+                <!-- <mat-icon>more_vert</mat-icon> -->
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div class="exp-add-container">
+            <button matTooltip="New Appointment" class="exp-btn" mat-icon-button>
+                <mat-icon>add</mat-icon>
+            </button>
+
+            <button matTooltip="New Appointment" class="exp-btn" mat-icon-button>
+                <mat-icon style="font-size: 19px;">edit</mat-icon>
+            </button>
+
+            <button matTooltip="Re-schedule" class="exp-btn" mat-icon-button>
+                <mat-icon>settings_backup_restore</mat-icon>
+            </button>
+
+            <div class="search-box" matTooltip="Search Appotinment" mat-ripple matRippleColor="#ffffff13"
+                [@exapnButton]="triggerOpenClose">
+                <input type="text" placeholder="Search appointments" matInput>
+                <mat-icon (click)="onOpenClose()">search</mat-icon>
+            </div>
+
+        </div>
+
+        <div class="inner-exp-container" *ngFor="let a of apts; let i=index">
+            <div class="inner-exp-content">
+                <div class="dr-name">{{a.doctorName}} <span>({{a.specializations}})</span></div>
+                <div class="dr-prob">{{a.problem}}</div>
+            </div>
+
+            <div class="inner-exp-content-end">
+
+                <button mat-icon-button [matMenuTriggerFor]="menu1" style="margin-left: 10px;" *ngIf="!breakpointFlag">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu1="matMenu">
+                    <button mat-menu-item>View</button>
+                    <button mat-menu-item>Edit</button>
+                </mat-menu>
+
+                <button mat-icon-button style="margin-right: 10px;margin-right: 10px;position: relative;bottom: 35px;"
+                    *ngIf="breakpointFlag">
+                    <mat-icon>keyboard_arrow_right</mat-icon>
+                </button>
+
+                <mat-chip-list style="margin-left: 20px;">
+                    <mat-chip
+                        [ngClass]="{'accepted': a.status === 'accepted' , 'declined': a.status === 'declined', 'pending': a.status === 'pending'}"
+                        selected>
+                        {{a.status == "completed" ? "Completed" : (a.status == "accepted" ? "Accepted" : (a.status ==
+                        "declined" ? "Declined" : "Pending"))}}
+                    </mat-chip>
+                </mat-chip-list>
+
+                <div class="date-time-mob" *ngIf="breakpointFlag">
+                    <mat-icon>access_time</mat-icon> {{parseDate(a.time)}}
+                </div>
+
+                <div class="date-time-content" *ngIf="!breakpointFlag">
+                    <mat-icon>access_time</mat-icon> {{parseDate(a.time)}}
+                </div>
+
+            </div>
+        </div>
+    </mat-expansion-panel>
+
+
+    <div class="doc-title">Recommended Doctors</div>
+    <div class="doctors-container">
+        <mat-card class="example-card" *ngFor="let d of doctors; let i=index">
+            <div class="top-card-content">
+                <mat-card-header>
+                    <div mat-card-avatar style="background-size: cover;"
+                        [style.background-image]="'url('+ d.profilePictureUrl + ')' "></div>
+                    <!-- d.profilePictureUrl -->
+                    <mat-card-title>{{d.name}}</mat-card-title>
+                    <mat-card-subtitle>{{d.specializations}}</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <p>
+                        {{d.about}}
+                    </p>
+                </mat-card-content>
+            </div>
+            <mat-card-actions>
+                <button mat-button>Book Appointment</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+
+
+    <mat-expansion-panel expanded="true">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                OPD
+            </mat-panel-title>
+            <mat-panel-description>
+                <!-- <mat-icon>more_vert</mat-icon> -->
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div class="exp-add-container">
+            <button matTooltip="New Appointment" class="exp-btn" mat-icon-button>
+                <mat-icon>add</mat-icon>
+            </button>
+
+            <button matTooltip="New Appointment" class="exp-btn" mat-icon-button>
+                <mat-icon style="font-size: 19px;">edit</mat-icon>
+            </button>
+
+            <button matTooltip="Re-book" class="exp-btn" mat-icon-button>
+                <mat-icon>settings_backup_restore</mat-icon>
+            </button>
+
+            <div class="search-box" mat-ripple matRippleColor="#ffffff13" [@exapnButton]="triggerOpenClose">
+                <input type="text" placeholder="Search appointments" matInput>
+                <mat-icon (click)="onOpenClose()">search</mat-icon>
+            </div>
+
+        </div>
+
+
+        <div class="inner-exp-container">
+            <div class="inner-exp-content">
+                <div class="dr-name">Aditya Hospitals</div>
+                <div class="dr-prof">Orthopedic</div>
+            </div>
+
+            <div class="inner-exp-content-end">
+
+                <button mat-icon-button style="margin-left: 10px;" *ngIf="!breakpointFlag">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+
+                <button mat-icon-button style="margin-right: 10px;margin-right: 10px;position: relative;bottom: 35px;"
+                    *ngIf="breakpointFlag">
+                    <mat-icon>keyboard_arrow_right</mat-icon>
+                </button>
+
+                <mat-chip-list style="margin-left: 20px;">
+                    <mat-chip style="background-color: #69f0ae;" selected>Approved</mat-chip>
+                </mat-chip-list>
+
+                <div class="date-time-content">
+                    <mat-icon>access_time</mat-icon> Today 5:30 PM
+                </div>
+
+            </div>
+        </div>
+
+        <div class="inner-exp-container">
+            <div class="inner-exp-content">
+                <div class="dr-name">Amar Leela Hospital</div>
+                <div class="dr-prof">Gynecologist</div>
+            </div>
+
+            <div class="inner-exp-content-end">
+
+                <button mat-icon-button style="margin-left: 10px;" *ngIf="!breakpointFlag">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+
+                <button mat-icon-button style="margin-right: 10px;margin-right: 10px;position: relative;bottom: 35px;"
+                    *ngIf="breakpointFlag">
+                    <mat-icon>keyboard_arrow_right</mat-icon>
+                </button>
+
+                <mat-chip-list style="margin-left: 20px;">
+                    <mat-chip style="background-color: #f44336;" selected>Canceled</mat-chip>
+                </mat-chip-list>
+
+                <div class="date-time-content">
+                    <mat-icon>access_time</mat-icon> 23/11/20 11:30 AM
+                </div>
+
+            </div>
+        </div>
+
+        <div class="inner-exp-container">
+            <div class="inner-exp-content">
+                <div class="dr-name">Apex Hospitals</div>
+                <div class="dr-prof">CardioLogist</div>
+            </div>
+
+            <div class="inner-exp-content-end">
+
+                <button mat-icon-button style="margin-left: 10px;" *ngIf="!breakpointFlag">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+
+                <button mat-icon-button style="margin-right: 10px;margin-right: 10px;position: relative;bottom: 35px;"
+                    *ngIf="breakpointFlag">
+                    <mat-icon>keyboard_arrow_right</mat-icon>
+                </button>
+
+                <mat-chip-list style="margin-left: 20px;">
+                    <mat-chip style="background-color: #f0e769;" selected>Pending</mat-chip>
+                </mat-chip-list>
+
+                <div class="date-time-content">
+                    <mat-icon>access_time</mat-icon> 01/12/20 02:30 PM
+                </div>
+
+            </div>
+        </div>
+
+        <div class="inner-exp-container">
+            <div class="inner-exp-content">
+                <div class="dr-name">Bombay Hospital </div>
+                <div class="dr-prof">Cardiology</div>
+            </div>
+
+            <div class="inner-exp-content-end">
+
+                <button mat-icon-button style="margin-left: 10px;" *ngIf="!breakpointFlag">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+
+                <button mat-icon-button style="margin-right: 10px;margin-right: 10px;position: relative;bottom: 35px;"
+                    *ngIf="breakpointFlag">
+                    <mat-icon>keyboard_arrow_right</mat-icon>
+                </button>
+
+                <mat-chip-list style="margin-left: 20px;">
+                    <mat-chip style="background-color: #f0e769;" selected>Pending</mat-chip>
+                </mat-chip-list>
+
+                <div class="date-time-content">
+                    <mat-icon>access_time</mat-icon> 01/12/20 02:30 PM
+                </div>
+
+            </div>
+        </div>
+
+        <div class="inner-exp-container">
+            <div class="inner-exp-content">
+                <div class="dr-name">Apollo Hospital</div>
+                <div class="dr-prof">Ophthalpmology</div>
+            </div>
+
+            <div class="inner-exp-content-end">
+
+                <button mat-icon-button style="margin-left: 10px;" *ngIf="!breakpointFlag">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+
+                <button mat-icon-button style="margin-right: 10px;margin-right: 10px;position: relative;bottom: 35px;"
+                    *ngIf="breakpointFlag">
+                    <mat-icon>keyboard_arrow_right</mat-icon>
+                </button>
+
+                <mat-chip-list style="margin-left: 20px;">
+                    <mat-chip style="background-color: #f0e769;" selected>Pending</mat-chip>
+                </mat-chip-list>
+
+                <div class="date-time-content">
+                    <mat-icon>access_time</mat-icon> 01/12/20 02:30 PM
+                </div>
+
+            </div>
+        </div>
+
+    </mat-expansion-panel>
+
+    <mat-expansion-panel expanded="true">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Medical Tests
+            </mat-panel-title>
+            <mat-panel-description>
+                <!-- <mat-icon>more_vert</mat-icon> -->
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div class="exp-add-container">
+            <button matTooltip="New Appointment" class="exp-btn" mat-icon-button>
+                <mat-icon>add</mat-icon>
+            </button>
+
+            <button matTooltip="New Appointment" class="exp-btn" mat-icon-button>
+                <mat-icon style="font-size: 19px;">edit</mat-icon>
+            </button>
+
+            <div class="search-box" mat-ripple matRippleColor="#ffffff13" [@exapnButton]="triggerOpenClose">
+                <input type="text" placeholder="Search appointments" matInput>
+                <mat-icon (click)="onOpenClose()">search</mat-icon>
+            </div>
+
+        </div>
+
+
+        <mat-form-field>
+            <mat-label>Date</mat-label>
+            <input matInput [matDatepicker]="picker" (focus)="picker.open()" readonly>
+        </mat-form-field>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-expansion-panel>
+</div>
+
+<div class="msg-btn" style="cursor: pointer;" (click)="onChatOpen()" *ngIf="!openChatFlag">
+    <ng-lottie [options]="options" width="100px" height="100px" [styles]="styles"
+        (animationCreated)="handleAnimation($event)" MessengerAnime [playStopRefAnime]="animeMessengerRef">
+    </ng-lottie>
+    <mat-icon MessengerAnime [playStopRefAnime]="animeMessengerRef"> message</mat-icon>
+</div>
+
+<!-- <ngx-spinner bdColor="rgb(20, 126, 251)" size="large" color="#fff" type="ball-atom" [fullScreen]="true">
+    <p class="verify-text"><a href="https://gmail.com" target="_blank">We have sent you a mail for email verification on
+            email address : {{email}} <mat-icon>open_in_new</mat-icon></a></p>
+    <p class="or-txt">Or</p>
+    <p class="sign-out" (click)="onSignOut()">Sign Out</p>
+    <p class="verify-text2">We are waiting for you, while you can go verify you email</p>
+
+    <button class="resend-btn" (click)="resendVerification()" mat-button>Resend</button>
+</ngx-spinner> -->
+
+<app-chat [@chatAnime] class="chat-box animate__animated animate__bounceInUp" *ngIf="openChatFlag"
+    (messageEvent)="onChatClose($event)"></app-chat>
