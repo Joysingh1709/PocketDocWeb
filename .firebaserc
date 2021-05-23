@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "pocketdoc-f1700": {
+      "hosting": {
+        "PocketDoc": [
+          "pocketdoc-f1700"
+        ]
+      }
+    }
+  }
+}

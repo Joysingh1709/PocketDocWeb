@@ -1,0 +1,274 @@
+.title-container{
+    width: 100%;
+    height: 320px;
+    background-color: #147EFB;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title-text-container{
+    width: 80%;
+    margin-top: 80px;
+}
+
+.welcome-title{
+    font-size: 2.5em !important;
+}
+
+.dont-have{
+    position: relative;
+    top: -54px;
+}
+
+.pass-forget-text{
+    font-size: 1rem;
+    color: #000000;
+    padding: 10px 10px 0px 10px;
+    text-align: center;
+    width: 80%;
+    transition: 0.2s ease-in-out;
+}
+
+.mat-spinner::ng-deep circle {
+    stroke: #fff;
+}
+
+.login-container{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 50%;
+    top: -15%;
+    height: 400px;
+    background-color: #FFFFFF;
+    margin: auto;
+    border-radius: 10px;
+
+    -webkit-box-shadow: 2px 4px 26px 2px rgba(0,0,0,0.29);
+    -moz-box-shadow: 2px 4px 26px 2px rgba(0,0,0,0.29);
+    box-shadow: 2px 4px 26px 2px rgba(0,0,0,0.29);
+}
+
+.login-container form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.mat-form-field-appearance-outline::ng-deep .mat-form-field-outline-thick {
+    color: #0077ff;
+}
+
+.mat-form-field-appearance-outline::ng-deep .mat-form-field-outline {
+    color: #0077ff;
+}
+
+.example-full-width{
+    margin-bottom: 10px;
+}
+
+.login-img {
+    position: relative;
+    top: -80px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-text{
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #0077ff;
+    border-bottom: #147EFB solid;
+    padding: 10px;
+}
+
+.example-full-width{
+    width: 100%;
+}
+
+.input-container{
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.form-container{
+    width: 100%;
+    padding: 20px;
+    top: -60px;
+    position: relative;
+}
+
+.forget-form-container{
+    width: 100%;
+    padding: 0px 20px;
+    top: -60px;
+    position: relative;
+}
+
+.login-circle{
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    top: -64px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: #FFFFFF solid;
+    border-width: 4px;
+    background-color: #0077ff;
+
+    -webkit-box-shadow: 0px 17px 49px -15px rgba(0,0,0,0.53);
+    -moz-box-shadow: 0px 17px 49px -15px rgba(0,0,0,0.53);
+    box-shadow: 0px 17px 49px -15px rgba(0,0,0,0.53);
+}
+
+.login-circle mat-icon{
+    color: #FFFFFF;
+    font-size: 3rem;
+    width: 46px;
+    height: 46px;
+}
+
+.example-full-width .material-icons{
+    /* padding-right: 5px; */
+    color: #0077ff;
+}
+
+.login-btn{
+    position: relative;
+    width: 100px;
+    height: 100px;
+    top: -130px;
+    display: none;
+}
+
+.reset-btn{
+    outline: none;
+    border: none;
+    background-color: #147EFB;
+    color: #FFFFFF;
+    padding: 2px 40px;
+    top: -72px;
+}
+
+.pointer{
+    cursor: pointer;
+}
+
+.sign-up{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    top: -80px;
+}
+
+.text-sign:hover{
+    color: #0a51a1;
+}
+
+.text-muted{
+    color: #63636386;
+}
+
+.text-sign{
+    color: #0077ff;
+    font-weight: 500;
+}
+
+.mat-spinner circle {
+    stroke: #fff;
+}
+
+/* media queries */
+
+/* // Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575px)   {
+
+    .sign-up{
+        top: -85px;
+        flex-direction: column-reverse;
+    }
+
+    .login-container{
+        width: 80%;
+        height: 440px;
+    }
+
+    .title-text-container{
+        width: 80%;
+        margin-top: 50px;
+    }
+
+    .login-container{
+        top: -75px;
+    }
+
+    .input-container{
+        width: 70%;
+    }
+}
+
+/* // Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767px){
+    .login-container{
+        width: 80%;
+    }
+
+    .title-text-container{
+        width: 80%;
+        margin-top: 50px;
+    }
+    .login-container{
+        top: -75px;
+    }
+
+    .input-container{
+        width: 70%;
+    }
+}
+
+/* // Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991px)   {
+
+    .title-text-container{
+        width: 80%;
+        margin-top: 50px;
+    }
+
+    .login-container{
+        width: 70%;
+    }
+
+    .input-container{
+        width: 70%;
+    }
+
+}
+
+/* // Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199px)   {
+
+}
+
+/* // Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px)  {
+
+}

@@ -1,0 +1,89 @@
+<div class="nav-container">
+
+    <!-- mat-mini-fab -->
+    <div class="nav-left">
+        <button mat-icon-button style="margin-left: 20px;" (click)="navToggle()">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <img src="../../../assets/ic_launcher_round.png" *ngIf="photoURL === 'user'"
+            style="margin-left: 10px; margin-right: 10px;" width="50px" height="50px" alt="">
+
+        <img src="../../../assets/docPlus.png" *ngIf="photoURL === 'doctor'"
+            style="margin-left: 10px; margin-right: 10px;" width="50px" height="50px" alt="">
+
+        <div class="nav-brand">
+            {{photoURL === 'user' ? "PocketDoc" : "PocketDocPlus"}}
+        </div>
+    </div>
+
+    <div class="nav-right" *ngIf="userDataPassed">
+        <div class="nav-menu" *ngIf="userDataPassed.name !== ''">
+            <button *ngIf="photoURL === 'user'" mat-button class="profile-btn" [matMenuTriggerFor]="menu"> <img
+                    src="{{userDataPassed.profilePictureUrl}}" width="25px" height="25px"
+                    style="border-radius: 50%; margin-right: 5px;" alt=""> {{userDataPassed.name}} <mat-icon>
+                    arrow_drop_down</mat-icon></button>
+
+            <button *ngIf="photoURL !== 'user'" mat-button class="profile-btn" [matMenuTriggerFor]="menu"> <img
+                    src="{{userDataPassed.profilePictureUrl}}" width="25px" height="25px"
+                    style="border-radius: 50%; margin-right: 5px;" alt=""> Dr. {{userDataPassed.name}} <mat-icon>
+                    arrow_drop_down</mat-icon></button>
+
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item routerLink="profile-update">
+                    <mat-icon>dialpad</mat-icon>
+                    <span>Edit Profile</span>
+                </button>
+                <button mat-menu-item>
+                    <mat-icon>dialpad</mat-icon>
+                    <span>Change Password</span>
+                </button>
+                <button mat-menu-item (click)="onSignOut()">
+                    <mat-icon>dialpad</mat-icon>
+                    <span>Sign Out</span>
+                </button>
+            </mat-menu>
+
+            <div class="notif">
+                <button (mouseenter)="onNotifHover($event)" (mouseleave)="onNotifHover($event)" class="notif-btn"
+                    style="margin-right: 10px;" mat-icon-button [matMenuTriggerFor]="menuNotification">
+                    <mat-icon [matBadge]="notifCount > 0 ? notifCount : ''" matBadgePosition="after"
+                        [ngStyle]="{'color': notifColor}" matBadgeColor="warn">{{notifName}}</mat-icon>
+                </button>
+            </div>
+
+            <mat-menu #menuNotification="matMenu" yPosition="below">
+                <div class="notif-title">
+                    <div>Notifications</div>
+                    <div>Clear all</div>
+                </div>
+                <ng-container *ngFor="let nfMsg of notifData; let i=index">
+                    <div class="main-notif" *ngIf="nfMsg.doctorMessageCount > 0" mat-menu-item>
+                        <mat-icon [matBadge]="nfMsg.doctorMessageCount > 0 ? nfMsg.doctorMessageCount : '' "
+                            matBadgePosition="after" matBadgeColor="warn">forum</mat-icon>
+                        <div class="notif-body">
+                            <span>From : {{nfMsg.doctorName}}</span>
+                            <span>" {{nfMsg.lastMessage}} "</span>
+                        </div>
+                    </div>
+                </ng-container>
+                <button mat-menu-item *ngIf="notifData.length <= 0">
+                    <mat-icon>notifications_off</mat-icon>
+                    <span>There are no notification..!</span>
+                </button>
+            </mat-menu>
+
+            <div *ngIf="photoURL === 'user'">
+                <button class="nav-btn" mat-button>
+                    <mat-icon>add</mat-icon> New Appointment
+                </button>
+            </div>
+
+            <div *ngIf="photoURL === 'user'">
+                <button class="nav-btn" mat-button>
+                    <mat-icon>add</mat-icon> Book OPD
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>

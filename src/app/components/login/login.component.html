@@ -1,0 +1,52 @@
+<div class="login-container">
+    <form [formGroup]="registerForm" (ngSubmit)="onLogin()">
+        <div class="login-img">
+            <img width="180" height="150px" src="../../../assets/login_icon.png" alt="">
+            <div class="login-text">Login</div>
+        </div>
+
+        <div class="input-container">
+            <div class="form-container">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <span matPrefix class="material-icons">
+                        perm_identity
+                    </span>
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email" placeholder="Ex. pat@example.com" required>
+                    <mat-error *ngIf="formErrors.email">
+                        {{formErrors.email}}
+                    </mat-error>
+                    <mat-error *ngIf="registerForm.controls.email.pristine">
+                        Email is Required
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <span matPrefix class="material-icons">
+                        lock
+                    </span>
+                    <mat-label>Password</mat-label>
+                    <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required>
+                    <mat-icon class="visible-curs" matSuffix (click)="hide = !hide">
+                        {{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    <mat-error *ngIf="formErrors.password">{{formErrors.password}}</mat-error>
+                    <mat-error *ngIf="registerForm.controls.password.pristine">
+                        Password is Required
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="sign-up">
+                <div class="text-sign" (click)="toSignUp()">New here? Sign Up</div>
+                <div class="text-muted">Or</div>
+                <div class="text-sign" (click)="passwordReset()">Forgot Password?</div>
+            </div>
+
+            <label for="sub-btn" class="login-circle">
+                <mat-icon *ngIf="!loading">keyboard_arrow_right</mat-icon>
+                <mat-spinner *ngIf="loading" strokeWidth="5" [diameter]="30"></mat-spinner>
+            </label>
+            <button class="login-btn" id="sub-btn" type="submit"></button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,116 @@
+mat-sidenav{
+    min-width: 250px;
+    max-width: auto;
+    border: none;
+}
+
+mat-list-item{
+    cursor: pointer;
+    height: 50px;
+    transition: 0.25s ease-in-out;
+}
+
+mat-list-item:hover{
+    margin-bottom: 10px;
+    background-color: rgba(0, 0, 0, 0.055);
+}
+
+mat-list-item mat-icon{
+    transition: 0.35s ease-in-out;
+    color: rgba(20, 128, 251, 0.5) !important;
+}
+
+mat-list-item:hover{
+    color: #147EFB !important;
+}
+
+mat-sidenav-content{
+    height: 100vh;
+}
+
+mat-sidenav-content::-webkit-scrollbar{
+    display: none;
+}
+
+.resend-btn{
+    padding: 5px 40px;
+    font-size: 1.5rem;
+    top: 60px;
+    color: #FFFFFF;
+    background-color: rgb(20, 126, 251);
+    /* #147EFB */
+    border: #FFFFFF 1px solid;
+}
+
+.verify-text{
+    cursor: pointer;
+    position: relative;
+    top: -170px;
+    text-align: center;
+    font-size: 1.2rem;
+    transition: 0.4s ease-in-out;
+    line-height: 32px;
+}
+
+a{
+    color: #FFFFFF;
+    text-decoration: none;    
+}
+
+.verify-text mat-icon{
+    display: none;
+    position: absolute;
+    transition: 0.4s ease-in-out;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+.accepted {
+    background-color: #69f0ae !important;
+}
+
+.pending {
+    background-color: #f0e769 !important;
+}
+
+.declined {
+    background-color: #f44336 !important;
+}
+
+.or-txt{
+    position: relative;
+    top: -165px;
+    color: #ffffff7e;
+}
+
+.sign-out{
+    cursor: pointer;
+    position: relative;
+    top: -165px;
+    font-size: 1rem;
+    color: #FFFFFF;
+    text-align: center;
+    transition: 0.4s ease-in-out;
+    line-height: 32px;
+}
+
+.verify-text:hover mat-icon{
+    display: inline-block;    
+}
+.verify-text:hover{
+    text-decoration: underline;    
+}
+
+.verify-text2{
+    position: relative;
+    top: 40px;
+    color: #FFFFFF;
+    font-size: 1.2em;
+}
+
+ngx-spinner::ng-deep .loading-text{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

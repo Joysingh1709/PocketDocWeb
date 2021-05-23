@@ -1,0 +1,32 @@
+.side-form {
+        position: absolute;
+        z-index: 100;
+        top: 0;
+        right: 0;
+        width: 30%;
+        height: 100%;
+        overflow: auto;
+        /* background: #147EFB; */
+        background: #FFFFFF;
+        /* -webkit-box-shadow: -4px 3px 16px 0px rgba(0,0,0,0.75);
+        -moz-box-shadow: -4px 3px 16px 0px rgba(0,0,0,0.75);
+        box-shadow: -4px 3px 16px 0px rgba(0,0,0,0.75); */
+        box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.28);
+}
+
+.btn-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.back-btn{
+    background-color: #131313;
+    color: #fff;
+    padding: 10px 40px;
+}
+
+.chatbox{
+    margin: auto;
+}

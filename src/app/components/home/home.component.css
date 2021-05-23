@@ -1,0 +1,253 @@
+.title-container{
+    width: 100%;
+    height: 320px;
+    /* background-color: #147EFB; */
+    background-color: transparent;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.body{
+    background: url(../../../assets/statistic.jpg);
+
+    background-attachment: fixed;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    min-height: 100vh;
+}
+
+#section1{
+    transition: 0.5s ease-in-out;    
+}
+
+#section2{
+    transition: 0.5s ease-in-out;
+}
+
+
+#section1in img{
+    opacity: 85%;
+    width: 500px;
+    height: 500px;
+    margin-right: 40px;
+}
+
+#section1-2{
+    width: 100%;
+    height: auto;
+    padding-bottom: 80px;
+}
+
+.sec-1-2-item{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.sec-1-2-item .sec-1-2-item-text{
+    margin-top: 20px;
+    font-size: 1.5rem;
+    color: #ffffff;
+}
+
+.sec-1-2-item .sec-1-2-item-number{
+    margin-top: 20px;
+    font-size: 2.5rem;
+    color: #ffffff;
+}
+
+.sec1-2{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-around;
+}
+
+#section1in{
+    box-shadow: 1px 1px 80px -9px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 1px 1px 80px -9px rgba(0,0,0,0.75);
+    -moz-box-shadow: 1px 1px 80px -9px rgba(0,0,0,0.75);
+
+    width: 100%;
+    height: 530px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    position: relative;
+    background-color: #ffffff;
+}
+
+.section-text{
+    flex-direction: column;
+    width: 50%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.pdoc h3{
+    font-size: 2.125rem;
+    font-weight: 500;
+    line-height: 1.2;
+    font-family: 'Lato', sans-serif !important;
+}
+.pdoc p{
+    font-size: 1.125rem;
+    font-weight: 200;
+    line-height: 1;
+    font-family: 'Lato', sans-serif !important;
+}
+
+.bgAfter{
+    transition: 0.5s ease-in-out;
+    background: #ffffff !important;
+}
+
+.sec1{
+    transition: 0.5s ease-in-out;
+    background: url(../../../assets/statistic.jpg);
+
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center center;
+    background-repeat: no-repeat;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+}
+
+.sec2{
+    transition: 0.5s ease-in-out;
+    background: "#FFFFFF";
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+}
+
+.title-text-container{
+    width: 80%;
+    margin-top: 60px;
+    position: relative;
+    top: 188px;
+}
+
+.welcome-title{
+    font-size: 2.9em !important;
+}
+
+/* navigation css */
+
+.nav-container{
+    width: 100%;
+    top: 0;
+    padding: 20px 0px;
+    /* background-color: black; */
+    display: flex;
+    flex-direction: row;
+}
+
+.nav-left{
+    width: 40%;
+    height: 100%;
+}
+
+.nav-logo{
+    position: absolute;
+    left: 250px;
+    top: 102px;
+}
+
+.nav-right{
+    width: 60%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-menu{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.nav-item{
+    cursor: pointer;
+    margin: 0px 15px 0px 15px;
+    border-bottom: 2px transparent inset;
+    transition: all 0.2s ease-in-out;
+}
+
+.nav-item:hover{
+    border-bottom: 2px #ffffff inset;
+}
+
+
+
+/* media queries */
+
+/* // Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575px)   {
+    #section1in img{
+        width: 200px;
+        height: 200px;
+        position: absolute;
+        right: 0;
+        margin-right: 0px;
+    }
+    .section-text{
+        width: 80%;
+    }
+    .section-text .pdoc{
+        margin-bottom: 120px;
+    }
+}
+
+/* // Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767px){
+    #section1in img{
+        width: 200px;
+        height: 200px;
+        position: absolute;
+        right: 0;
+        margin-right: 0px;
+    }
+
+    .section-text{
+        width: 80%;
+    }
+    .section-text .pdoc{
+        margin-bottom: 120px;
+    }
+}
+
+/* // Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991px)   {
+
+}
+
+/* // Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199px)   {
+
+}
+
+/* // Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px)  {
+
+}

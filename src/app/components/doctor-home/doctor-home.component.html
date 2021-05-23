@@ -1,0 +1,600 @@
+<!-- <div class="image-upload-container">
+    <input type="file" (change)="onimageUpload($event)" accept="image/*">
+</div>
+
+<div class="progress">
+    <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+</div> -->
+
+<router-outlet></router-outlet>
+
+<div class="card-container">
+    <div class="card-main">
+        <div class="card-content">
+            <div style="margin-bottom: 1rem;">Appointments</div>
+            <div class="card-count">312</div>
+        </div>
+
+        <div class="card-end">
+            <mat-icon>assignment</mat-icon>
+        </div>
+    </div>
+    <div class="card-main">
+        <div class="card-content">
+            <div style="margin-bottom: 1rem;">Patients</div>
+            <div class="card-count">104</div>
+        </div>
+
+        <div class="card-end">
+            <mat-icon>accessible</mat-icon>
+        </div>
+    </div>
+    <div class="card-main">
+        <div class="card-content">
+            <div style="margin-bottom: 1rem;">Reports</div>
+            <div class="card-count">224</div>
+        </div>
+
+        <div class="card-end">
+            <mat-icon>article</mat-icon>
+        </div>
+    </div>
+</div>
+
+<div class="content-main-container example-headers-align">
+    <div class="card-expp">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>New Appointments</mat-card-title>
+                <div class="exp-add-container">
+                    <button matTooltip="New Appointment" class="exp-btn" mat-icon-button>
+                        <mat-icon style="font-size: 19px;">edit</mat-icon>
+                    </button>
+
+                    <button matTooltip="Re-schedule" class="exp-btn" mat-icon-button>
+                        <mat-icon>settings_backup_restore</mat-icon>
+                    </button>
+
+                    <div class="search-box" mat-ripple matRippleColor="#ffffff13" [@exapnButton]="triggerOpenClose">
+                        <input class="search-box-input" type="text" placeholder="Search appointments">
+                        <mat-icon (click)="onOpenClose()">search</mat-icon>
+                    </div>
+
+                </div>
+            </mat-card-header>
+            <mat-card-content>
+
+                <div class="inner-exp-container">
+                    <div class="inner-exp-content">
+                        <div class="dr-name">Shrivastav Panchori</div>
+                        <div class="dr-prof">Issue: severe headache</div>
+                        <div class="date-time-mob">
+                            <mat-icon>access_time</mat-icon> Today 5:30 PM
+                        </div>
+                    </div>
+
+                    <div class="inner-exp-content-end">
+
+                        <button mat-icon-button [matMenuTriggerFor]="menu1" style="margin-left: 10px;"
+                            *ngIf="!breakpointFlag">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu1="matMenu">
+                            <button mat-menu-item>View</button> 
+                            <button mat-menu-item>Edit</button>
+                        </mat-menu>
+
+                        <button mat-icon-button
+                            style="margin-right: 10px;margin-left: 10px;position: relative;bottom: 35px;"
+                            *ngIf="breakpointFlag">
+                            <mat-icon>keyboard_arrow_right</mat-icon>
+                        </button>
+
+                        <div class="btn-in-cont">
+                            <button style="margin: 0px 5px;" class="dec-btn" mat-button>Decline</button>
+                            <button style="margin: 0px 5px;" class="acp-btn" mat-button>Accept</button>
+                        </div>
+
+                        <!-- <div class="date-time-mob" *ngIf="breakpointFlag">
+                            <mat-icon>access_time</mat-icon> Today 5:30 PM
+                        </div> -->
+
+                        <!-- <div class="date-time-content" *ngIf="!breakpointFlag">
+                            <mat-icon>access_time</mat-icon> Today 5:30 PM
+                        </div> -->
+
+                    </div>
+                </div>
+
+                <div class="inner-exp-container">
+                    <div class="inner-exp-content">
+                        <div class="dr-name">Janhavi Thakur</div>
+                        <div class="dr-prof">Issue: back pain</div>
+                        <div class="date-time-mob">
+                            <mat-icon>access_time</mat-icon> 23/11/20 11:30 AM
+                        </div>
+                    </div>
+
+                    <div class="inner-exp-content-end">
+
+                        <button mat-icon-button [matMenuTriggerFor]="menu1" style="margin-left: 10px;"
+                            *ngIf="!breakpointFlag">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu1="matMenu">
+                            <button mat-menu-item>View</button> 
+                            <button mat-menu-item>Edit</button>
+                        </mat-menu>
+
+                        <button mat-icon-button
+                            style="margin-right: 10px;margin-left: 10px;position: relative;bottom: 35px;"
+                            *ngIf="breakpointFlag">
+                            <mat-icon>keyboard_arrow_right</mat-icon>
+                        </button>
+
+                        <div class="btn-in-cont">
+                            <button style="margin: 0px 5px;" class="dec-btn" mat-button>Decline</button>
+                            <button style="margin: 0px 5px;" class="acp-btn" mat-button>Accept</button>
+                        </div>
+
+                        <!-- <div class="date-time-mob" *ngIf="breakpointFlag">
+                            <mat-icon>access_time</mat-icon> Today 5:30 PM
+                        </div> -->
+
+                        <!-- <div class="date-time-content" *ngIf="!breakpointFlag">
+                            <mat-icon>access_time</mat-icon> Today 5:30 PM
+                        </div> -->
+
+                    </div>
+                </div>
+
+                <div class="inner-exp-container">
+                    <div class="inner-exp-content">
+                        <div class="dr-name">Sanjeev Arora</div>
+                        <div class="dr-prof">Issue: severe headache</div>
+                        <div class="date-time-mob">
+                            <mat-icon>access_time</mat-icon> 01/12/20 02:30 PM
+                        </div>
+                    </div>
+
+                    <div class="inner-exp-content-end">
+
+                        <button mat-icon-button [matMenuTriggerFor]="menu1" style="margin-left: 10px;"
+                            *ngIf="!breakpointFlag">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu1="matMenu">
+                            <button mat-menu-item>View</button> 
+                            <button mat-menu-item>Edit</button>
+                        </mat-menu>
+
+                        <button mat-icon-button
+                            style="margin-right: 10px;margin-left: 10px;position: relative;bottom: 35px;"
+                            *ngIf="breakpointFlag">
+                            <mat-icon>keyboard_arrow_right</mat-icon>
+                        </button>
+
+                        <div class="btn-in-cont">
+                            <button style="margin: 0px 5px;" class="dec-btn" mat-button>Decline</button>
+                            <button style="margin: 0px 5px;" class="acp-btn" mat-button>Accept</button>
+                        </div>
+
+                        <!-- <div class="date-time-mob" *ngIf="breakpointFlag">
+                            <mat-icon>access_time</mat-icon> Today 5:30 PM
+                        </div> -->
+
+                        <!-- <div class="date-time-content" *ngIf="!breakpointFlag">
+                            <mat-icon>access_time</mat-icon> Today 5:30 PM
+                        </div> -->
+
+                    </div>
+                </div>
+
+            </mat-card-content>
+
+            <mat-card-footer>
+                <button mat-button class="btn-footer">View All</button>
+            </mat-card-footer>
+        </mat-card>
+    </div>
+
+    <div class="card-expp">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Active Appointments</mat-card-title>
+                <div class="exp-add-container">
+                    <button matTooltip="New Appointment" class="exp-btn" mat-icon-button>
+                        <mat-icon style="font-size: 19px;">edit</mat-icon>
+                    </button>
+
+                    <button matTooltip="Re-schedule" class="exp-btn" mat-icon-button>
+                        <mat-icon>settings_backup_restore</mat-icon>
+                    </button>
+
+                    <div class="search-box" mat-ripple matRippleColor="#ffffff13" [@exapnButton]="triggerOpenClose">
+                        <input class="search-box-input" type="text" placeholder="Search appointments">
+                        <mat-icon (click)="onOpenClose()">search</mat-icon>
+                    </div>
+
+                </div>
+            </mat-card-header>
+            <mat-card-content>
+
+                <div class="inner-exp-container">
+                    <div class="inner-exp-content">
+                        <div class="dr-name">Shrivastav Panchori</div>
+                        <div class="dr-prof">Issue: severe headache</div>
+                    </div>
+
+                    <div class="inner-exp-content-end">
+
+                        <button mat-icon-button [matMenuTriggerFor]="menu1" style="margin-left: 10px;"
+                            *ngIf="!breakpointFlag">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu1="matMenu">
+                            <button mat-menu-item>View</button>
+                            <button mat-menu-item>Edit</button>
+                        </mat-menu>
+
+                        <button mat-icon-button
+                            style="margin-right: 10px;margin-left: 10px;position: relative;bottom: 35px;"
+                            *ngIf="breakpointFlag">
+                            <mat-icon>keyboard_arrow_right</mat-icon>
+                        </button>
+
+                        <div class="exp-options" style="margin-right: 10px;margin-left: 10px;">
+                            <mat-label>Approve</mat-label>
+                            <mat-checkbox color="primary"
+                                style="margin: 0px 6px 0px 0px;margin-right: 10px;margin-left: 10px;">
+                            </mat-checkbox>
+                        </div>
+
+                        <div class="date-time-mob" *ngIf="breakpointFlag">
+                            <mat-icon>access_time</mat-icon> Today 5:30 PM
+                        </div>
+
+                        <div class="date-time-content" *ngIf="!breakpointFlag">
+                            <mat-icon>access_time</mat-icon> Today 5:30 PM
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="inner-exp-container">
+                    <div class="inner-exp-content">
+                        <div class="dr-name">Janhavi Thakur</div>
+                        <div class="dr-prof">Issue : back pain</div>
+                    </div>
+
+                    <div class="inner-exp-content-end">
+
+                        <button mat-icon-button [matMenuTriggerFor]="menu1" style="margin-left: 10px;"
+                            *ngIf="!breakpointFlag">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu1="matMenu">
+                            <button mat-menu-item>View</button>
+                            <button mat-menu-item>Edit</button>
+                        </mat-menu>
+
+                        <button mat-icon-button
+                            style="margin-right: 10px;margin-right: 10px;position: relative;bottom: 35px;"
+                            *ngIf="breakpointFlag">
+                            <mat-icon>keyboard_arrow_right</mat-icon>
+                        </button>
+
+
+                        <mat-chip-list style="margin-left: 20px;">
+                            <mat-chip style="background-color: #f44336;" selected>Canceled</mat-chip>
+                        </mat-chip-list>
+
+                        <div class="date-time-mob" *ngIf="breakpointFlag">
+                            <mat-icon>access_time</mat-icon> 23/11/20 11:30 AM
+                        </div>
+
+                        <div class="date-time-content" *ngIf="!breakpointFlag">
+                            <mat-icon>access_time</mat-icon> 23/11/20 11:30 AM
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="inner-exp-container">
+                    <div class="inner-exp-content">
+                        <div class="dr-name">Sanjeev Arora</div>
+                        <div class="dr-prof">Issue : </div>
+                    </div>
+
+                    <div class="inner-exp-content-end">
+
+                        <button mat-icon-button [matMenuTriggerFor]="menu1" style="margin-left: 10px;"
+                            *ngIf="!breakpointFlag">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu1="matMenu">
+                            <button mat-menu-item>View</button>
+                            <button mat-menu-item>Edit</button>
+                        </mat-menu>
+
+                        <button mat-icon-button
+                            style="margin-right: 10px;margin-right: 10px;position: relative;bottom: 35px;"
+                            *ngIf="breakpointFlag">
+                            <mat-icon>keyboard_arrow_right</mat-icon>
+                        </button>
+
+
+                        <mat-chip-list style="margin-left: 20px;">
+                            <mat-chip style="background-color: #f0e769;" selected>Pending</mat-chip>
+                        </mat-chip-list>
+
+                        <div class="date-time-mob" *ngIf="breakpointFlag">
+                            <mat-icon>access_time</mat-icon> 01/12/20 02:30 PM
+                        </div>
+
+                        <div class="date-time-content" *ngIf="!breakpointFlag">
+                            <mat-icon>access_time</mat-icon> 01/12/20 02:30 PM
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="inner-exp-container">
+                    <div class="inner-exp-content">
+                        <div class="dr-name">Sanjeev Arora</div>
+                        <div class="dr-prof">Issue : fever and rashes on body</div>
+                    </div>
+
+                    <div class="inner-exp-content-end">
+
+                        <button mat-icon-button [matMenuTriggerFor]="menu1" style="margin-left: 10px;"
+                            *ngIf="!breakpointFlag">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu1="matMenu">
+                            <button mat-menu-item>View</button>
+                            <button mat-menu-item>Edit</button>
+                        </mat-menu>
+
+                        <button mat-icon-button
+                            style="margin-right: 10px;margin-right: 10px;position: relative;bottom: 35px;"
+                            *ngIf="breakpointFlag">
+                            <mat-icon>keyboard_arrow_right</mat-icon>
+                        </button>
+
+
+                        <mat-chip-list style="margin-left: 20px;">
+                            <mat-chip style="background-color: #f0e769;" selected>Pending</mat-chip>
+                        </mat-chip-list>
+
+                        <div class="date-time-mob" *ngIf="breakpointFlag">
+                            <mat-icon>access_time</mat-icon> 01/12/20 02:30 PM
+                        </div>
+
+                        <div class="date-time-content" *ngIf="!breakpointFlag">
+                            <mat-icon>access_time</mat-icon> 01/12/20 02:30 PM
+                        </div>
+
+                    </div>
+                </div>
+
+            </mat-card-content>
+
+            <mat-card-footer>
+                <button mat-button class="btn-footer">View All</button>
+            </mat-card-footer>
+        </mat-card>
+    </div>
+
+    <div class="card-expp-lg">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Appointments history</mat-card-title>
+                <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
+                <div class="exp-add-container">
+
+                    <button matTooltip="New Appointment" class="exp-btn" mat-icon-button>
+                        <mat-icon style="font-size: 19px;">edit</mat-icon>
+                    </button>
+
+                    <button matTooltip="Re-schedule" class="exp-btn" mat-icon-button>
+                        <mat-icon>settings_backup_restore</mat-icon>
+                    </button>
+
+                    <div class="search-box" mat-ripple matRippleColor="#ffffff13" [@exapnButton]="triggerOpenClose">
+                        <input class="search-box-input" type="text" placeholder="Search appointments">
+                        <mat-icon (click)="onOpenClose()">search</mat-icon>
+                    </div>
+
+                </div>
+            </mat-card-header>
+            <mat-card-content>
+
+                <div class="inner-exp-container">
+                    <div class="inner-exp-content">
+                        <div class="dr-name">Shrivastav Panchori</div>
+                        <div class="dr-prof">Dermatologist</div>
+                    </div>
+
+                    <div class="inner-exp-content-end">
+
+                        <button mat-icon-button [matMenuTriggerFor]="menu1" style="margin-left: 10px;"
+                            *ngIf="!breakpointFlag">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu1="matMenu">
+                            <button mat-menu-item>View</button>
+                            <button mat-menu-item>Edit</button>
+                        </mat-menu>
+
+                        <button mat-icon-button
+                            style="margin-right: 10px;margin-left: 10px;position: relative;bottom: 35px;"
+                            *ngIf="breakpointFlag">
+                            <mat-icon>keyboard_arrow_right</mat-icon>
+                        </button>
+
+                        <div class="exp-options" style="margin-right: 10px;margin-left: 10px;">
+                            <mat-label>Approve</mat-label>
+                            <mat-checkbox color="primary"
+                                style="margin: 0px 6px 0px 0px;margin-right: 10px;margin-left: 10px;">
+                            </mat-checkbox>
+                        </div>
+
+                        <div class="date-time-mob" *ngIf="breakpointFlag">
+                            <mat-icon>access_time</mat-icon> Today 5:30 PM
+                        </div>
+
+                        <div class="date-time-content" *ngIf="!breakpointFlag">
+                            <mat-icon>access_time</mat-icon> Today 5:30 PM
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="inner-exp-container">
+                    <div class="inner-exp-content">
+                        <div class="dr-name">Dr. Janhavi Thakur</div>
+                        <div class="dr-prof">Gynecologist</div>
+                    </div>
+
+                    <div class="inner-exp-content-end">
+
+                        <button mat-icon-button [matMenuTriggerFor]="menu1" style="margin-left: 10px;"
+                            *ngIf="!breakpointFlag">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu1="matMenu">
+                            <button mat-menu-item>View</button>
+                            <button mat-menu-item>Edit</button>
+                        </mat-menu>
+
+                        <button mat-icon-button
+                            style="margin-right: 10px;margin-right: 10px;position: relative;bottom: 35px;"
+                            *ngIf="breakpointFlag">
+                            <mat-icon>keyboard_arrow_right</mat-icon>
+                        </button>
+
+
+                        <mat-chip-list style="margin-left: 20px;">
+                            <mat-chip style="background-color: #f44336;" selected>Canceled</mat-chip>
+                        </mat-chip-list>
+
+                        <div class="date-time-mob" *ngIf="breakpointFlag">
+                            <mat-icon>access_time</mat-icon> 23/11/20 11:30 AM
+                        </div>
+
+                        <div class="date-time-content" *ngIf="!breakpointFlag">
+                            <mat-icon>access_time</mat-icon> 23/11/20 11:30 AM
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="inner-exp-container">
+                    <div class="inner-exp-content">
+                        <div class="dr-name">Dr. Sanjeev Arora</div>
+                        <div class="dr-prof">CardioLogist</div>
+                    </div>
+
+                    <div class="inner-exp-content-end">
+
+                        <button mat-icon-button [matMenuTriggerFor]="menu1" style="margin-left: 10px;"
+                            *ngIf="!breakpointFlag">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu1="matMenu">
+                            <button mat-menu-item>View</button>
+                            <button mat-menu-item>Edit</button>
+                        </mat-menu>
+
+                        <button mat-icon-button
+                            style="margin-right: 10px;margin-right: 10px;position: relative;bottom: 35px;"
+                            *ngIf="breakpointFlag">
+                            <mat-icon>keyboard_arrow_right</mat-icon>
+                        </button>
+
+
+                        <mat-chip-list style="margin-left: 20px;">
+                            <mat-chip style="background-color: #f0e769;" selected>Pending</mat-chip>
+                        </mat-chip-list>
+
+                        <div class="date-time-mob" *ngIf="breakpointFlag">
+                            <mat-icon>access_time</mat-icon> 01/12/20 02:30 PM
+                        </div>
+
+                        <div class="date-time-content" *ngIf="!breakpointFlag">
+                            <mat-icon>access_time</mat-icon> 01/12/20 02:30 PM
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="inner-exp-container">
+                    <div class="inner-exp-content">
+                        <div class="dr-name">Dr. Sanjeev Arora</div>
+                        <div class="dr-prof">CardioLogist</div>
+                    </div>
+
+                    <div class="inner-exp-content-end">
+
+                        <button mat-icon-button [matMenuTriggerFor]="menu1" style="margin-left: 10px;"
+                            *ngIf="!breakpointFlag">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu1="matMenu">
+                            <button mat-menu-item>View</button>
+                            <button mat-menu-item>Edit</button>
+                        </mat-menu>
+
+                        <button mat-icon-button
+                            style="margin-right: 10px;margin-right: 10px;position: relative;bottom: 35px;"
+                            *ngIf="breakpointFlag">
+                            <mat-icon>keyboard_arrow_right</mat-icon>
+                        </button>
+
+
+                        <mat-chip-list style="margin-left: 20px;">
+                            <mat-chip style="background-color: #f0e769;" selected>Pending</mat-chip>
+                        </mat-chip-list>
+
+                        <div class="date-time-mob" *ngIf="breakpointFlag">
+                            <mat-icon>access_time</mat-icon> 01/12/20 02:30 PM
+                        </div>
+
+                        <div class="date-time-content" *ngIf="!breakpointFlag">
+                            <mat-icon>access_time</mat-icon> 01/12/20 02:30 PM
+                        </div>
+
+                    </div>
+                </div>
+
+            </mat-card-content>
+
+            <mat-card-footer>
+                <button mat-button class="btn-footer">View All</button>
+            </mat-card-footer>
+        </mat-card>
+    </div>
+
+</div>
+
+<div class="msg-btn" style="cursor: pointer;" (click)="onChatOpen()" *ngIf="!openChatFlag">
+    <ng-lottie [options]="options" width="100px" height="100px" [styles]="styles"
+        (animationCreated)="handleAnimation($event)" MessengerAnime [playStopRefAnime]="animeMessengerRef">
+    </ng-lottie>
+    <mat-icon MessengerAnime [playStopRefAnime]="animeMessengerRef"> message</mat-icon>
+</div>
+
+<ngx-spinner bdColor="rgb(20, 126, 251)" size="large" color="#fff" type="ball-atom" [fullScreen]="true">
+    <!-- <mat-icon class="mail-icon"> mail_outline</mat-icon> -->
+    <p class="verify-text"><a href="https://gmail.com" target="_blank">We have sent you a mail for email verification on
+            email address : {{email}} <mat-icon>open_in_new</mat-icon></a></p>
+    <p class="or-txt">Or</p>
+    <p class="sign-out" (click)="onSignOut()">Sign Out</p>
+    <p class="verify-text2">We are waiting for you, while you can go verify you email</p>
+
+    <button class="resend-btn" (click)="resendVerification()" mat-button>Resend</button>
+</ngx-spinner>
+
+<app-chat-doc [@chatAnime] class="chat-box animate__animated animate__bounceInUp" *ngIf="openChatFlag"
+    (messageEvent)="onChatClose($event)"></app-chat-doc>
