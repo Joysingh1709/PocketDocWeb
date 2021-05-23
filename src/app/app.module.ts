@@ -69,6 +69,7 @@ import { ChatDocComponent } from './components/chat-doc/chat-doc.component';
 import { ChatDocBodyComponent } from './components/chat-doc/chat-doc-body/chat-doc-body.component';
 import { HospitalComponent } from './components/hospital/hospital.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { BookAppointmentComponent } from './components/book-appointment/book-appointment.component';
 
 export function playerFactory() {
   return player;
@@ -97,7 +98,8 @@ export function playerFactory() {
     NavItemDirective,
     ChatDocComponent,
     ChatDocBodyComponent,
-    HospitalComponent
+    HospitalComponent,
+    BookAppointmentComponent
   ],
   imports: [
     BrowserModule,
@@ -138,7 +140,7 @@ export function playerFactory() {
     MatProgressSpinnerModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
-    AngularFireAuthModule, 
+    AngularFireAuthModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }), // imports firebase/auth, only needed for auth features
   ],
   entryComponents: [UpdateProfileDialogComponent],

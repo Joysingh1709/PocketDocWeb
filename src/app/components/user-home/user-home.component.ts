@@ -32,6 +32,8 @@ export class UserHomeComponent implements OnInit {
 
   fullUserData: any;
 
+  emailLoader: string = "emailLoader";
+
   openChatFlag: boolean = false;
 
   apts: any[] = [];
@@ -53,6 +55,8 @@ export class UserHomeComponent implements OnInit {
   animeMessengerRef: any;
 
   breakpointFlag: boolean = false;
+  unsbscribeAppointments: () => void;
+  firstAppointmentFetch: boolean = true;
 
   constructor(private router: Router,
     private spinner: NgxSpinnerService,
@@ -85,6 +89,9 @@ export class UserHomeComponent implements OnInit {
             this.navService.changeLoadingShowData(false);
           }, 1000);
 
+          console.log("show ngx spinner")
+          this.navService.changeEmailLoading(true);
+
           user.sendEmailVerification()
             .then(res => {
               console.log(res);
@@ -93,18 +100,19 @@ export class UserHomeComponent implements OnInit {
                 user.reload();
 
                 if (user.emailVerified) {
-                  this.spinner.hide();
+                  console.log("email loading closed");
+                  this.navService.changeEmailLoading(false);
                   clearInterval();
                   //reload page so that it could fetch the user data again       
                   window.location.reload();
                 }
               }, 2000);
 
+              this.navService.changeEmailLoading(true);
+
             }, err => {
               console.log(err)
             })
-
-          this.spinner.show();
 
         } else {
           console.log("checking if user data is in database or not");
@@ -128,17 +136,18 @@ export class UserHomeComponent implements OnInit {
 
                 if (this.fullUserData.phoneNo === "" && this.fullUserData.address === "") {
                   const dialogRef = this.dialog.open(UpdateProfileDialogComponent, {
-                    hasBackdrop: false,
-                    width: "580px",
-                    height: "650px"
+                    hasBackdrop: true,
+                    disableClose: true,
+                    backdropClass: 'bckdrop',
+                    minWidth: this.breakpointFlag ? '100vw' : '',
+                    width: this.breakpointFlag ? '100vw' : "580px",
+                    height: this.breakpointFlag ? '100vh' : "650px"
                   });
 
                   dialogRef.afterClosed().subscribe(result => {
                     console.log(`Dialog result: ${result}`);
                   });
                 }
-
-                this.getAllAppointments();
 
                 console.log("Document data:", doc.data());
               } else {
@@ -162,45 +171,63 @@ export class UserHomeComponent implements OnInit {
                   verificationType: "",
                   verificatonDocUrl: "",
                   userCreateTimestamp: firestore.Timestamp.now()
-                  // medicalHistory: []
                 }
 
                 firestore().collection("users").doc(user.uid).set(userData)
-                  .then((docRef: any) => {
-                    if (docRef) {
+                  .then(docRef => {
+                    //creating additional data in document
 
-                      //creating additional data in document
-                      firestore().collection("users").doc(user.uid)
-                        .collection("medicalHistory")
-                        .add({})
+                    console.log("creating additional data in document");
 
-                      firestore().collection("users").doc(user.uid)
-                        .collection("paymentDetails")
-                        .add({})
+                    firestore().collection('users').doc(user.uid).collection("medicalHistory").doc().set({
+                      url: 'https://firebasestorage.googleapis.com/v0/b/pocketdoc-f1700.appspot.com/o/reports%2FNAMAN-SUKHWANI-Participant-Certificate.pdf?alt=media&token=e87156d3-b171-43cf-9f4e-975ac53dfb52',
+                      name: "Sample Report",
+                      dateCreated: firestore.Timestamp.now(),
+                      appointments: []
+                    }).catch(err => console.log(err))
+                    firestore().collection('users').doc(user.uid).collection("paymentDetails").doc().set({}).catch(err => console.log(err))
 
-                      setTimeout(() => {
-                        this.navService.changeLoadingShowData(false);
-                      }, 1000);
-                      this.fullUserData = userData;
-                      // console.log(this.fullUserData);
-                      this.dataService.changeProfileData(this.fullUserData);
+                    const dialogRef = this.dialog.open(UpdateProfileDialogComponent, {
+                      hasBackdrop: true,
+                      disableClose: true,
+                      backdropClass: 'bckdrop',
+                      minWidth: this.breakpointFlag ? '100vw' : '',
+                      width: this.breakpointFlag ? '100vw' : "580px",
+                      height: this.breakpointFlag ? '100vh' : "650px"
+                    });
 
-                      this.router.navigate(['profile-update']);
-                    } else {
-                      setTimeout(() => {
-                        this.navService.changeLoadingShowData(false);
-                      }, 1000);
-                      // console.log(docRef);
-                    }
+                    dialogRef.afterClosed().subscribe(result => {
+                      console.log(`Dialog result: ${result}`);
+                    });
+
+                    setTimeout(() => {
+                      this.navService.changeLoadingShowData(false);
+                    }, 1000);
+
+                    this.fullUserData = userData;
+                    // console.log(this.fullUserData);
+                    this.dataService.changeProfileData(this.fullUserData);
+
+                    // Open the user data updation promt dialog for the first time user logs in
+
+                    console.log("lets open profile update dialog");
+
+                    // this.router.navigate(['profile-update']);
+                    // } else {
+                    //   setTimeout(() => {
+                    //     this.navService.changeLoadingShowData(false);
+                    //   }, 1000);
+                    //   // console.log(docRef);
+                    // }
                     // console.log("New Document created with ID: ", docRef.id);
-                    this.getAllAppointments();
+                    // this.getAllAppointments();
                   })
                   .catch((error) => {
                     console.error("Error adding document: ", error);
                   });
 
                 // doc.data() will be undefined in this case
-                console.log("No such document!");
+                // console.log("No such document!");
               }
             }).catch((error) => {
               console.log("Error getting document:", error);
@@ -220,6 +247,7 @@ export class UserHomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    var user = firebase.auth().currentUser;
     this.breakpointObserver.observe('(max-width: 599px)').subscribe((result) => {
       if (result.matches) {
         this.navService.changeToggleData(false);
@@ -230,6 +258,67 @@ export class UserHomeComponent implements OnInit {
       }
     });
     this.getAllDoctors();
+
+    // fetching all the user appointments
+
+    if (user.photoURL === "user") {
+
+      this.unsbscribeAppointments = firestore().collection('appointments')
+        .where('userId', '==', user.uid)
+        .orderBy('time', 'desc')
+        .onSnapshot(querySnapshot => {
+          return Promise.all(querySnapshot.docs.map(async appointment => {
+            return {
+              id: appointment.id,
+              doctorData: await getDoctorData(appointment.data().doctorId),
+              ...appointment.data()
+            }
+          }))
+            .then(list => {
+              if (this.firstAppointmentFetch) {
+                this.firstAppointmentFetch = false;
+                this.addAppointments(list);
+              }
+              else {
+                this.updateAppointments(list)
+              }
+            })
+            .catch(err => {
+              console.log(err);
+            })
+
+        },
+          errors => {
+            console.log(errors);
+          });
+
+    }
+
+  }
+
+  addAppointments(appointments) {
+
+    const dayStart = new Date()
+    dayStart.setHours(0, 0, 0, 0)
+
+    var appointmentsCurrent = appointments.filter((appointment) => {
+      return appointment.time.toDate() >= dayStart
+    })
+
+    var appointmentsPrevious = appointments.filter((appointment) => {
+      return appointment.time.toDate() <= dayStart
+    })
+
+    var appointmentsSchduled = appointments.filter((appointment) => {
+      return appointment.time.toDate() >= dayStart && (appointment.status == "accepted")
+    })
+
+    // settlePreviousPendingAppointments(appointmentsPrevious);
+
+    // dispatch(addAppointmentsCurrent(appointmentsCurrent.reverse()))
+    // dispatch(addAppointmentsPrevious(appointmentsPrevious))
+    // dispatch(addAppointmentsSchduled(appointmentsSchduled.reverse()))
+    // dispatch(addAppointmentsAll(appointments));
   }
 
   ngAfterViewInit(): void {
@@ -248,35 +337,35 @@ export class UserHomeComponent implements OnInit {
       })
   }
 
-  async getAllAppointments() {
-    this.fb.collection('appointments')
-      .where("userId", "==", firebase.auth().currentUser.uid)
-      .get()
-      .then((querySnapshot) => {
-        console.warn("User Appointments data here");
-        querySnapshot.forEach((doc) => {
-          console.log(doc.id, " => ", doc.data());
-          // fetching doctor data
-          let d = doc.data();
+  // async getAllAppointments() {
+  //   this.fb.collection('appointments')
+  //     .where("userId", "==", firebase.auth().currentUser.uid)
+  //     .get()
+  //     .then((querySnapshot) => {
+  //       console.warn("User Appointments data here");
+  //       querySnapshot.forEach((doc) => {
+  //         console.log(doc.id, " => ", doc.data());
+  //         // fetching doctor data
+  //         let d = doc.data();
 
-          this.fb.collection("doctors").doc(d.doctorId)
-            .get()
-            .then(docD => {
-              let resData = docD.data();
-              let _pushData = {
-                doctorName: resData.name,
-                specializations: resData.specializations,
-                ...doc.data()
-              }
-              this.apts.push(_pushData);
-            })
+  //         this.fb.collection("doctors").doc(d.doctorId)
+  //           .get()
+  //           .then(docD => {
+  //             let resData = docD.data();
+  //             let _pushData = {
+  //               doctorName: resData.name,
+  //               specializations: resData.specializations,
+  //               ...doc.data()
+  //             }
+  //             this.apts.push(_pushData);
+  //           })
 
-        })
-      })
-      .catch(function (error) {
-        console.log("Error getting documents: ", error);
-      });
-  }
+  //       })
+  //     })
+  //     .catch(function (error) {
+  //       console.log("Error getting documents: ", error);
+  //     });
+  // }
 
   onChatOpen() {
     this.openChatFlag = !this.openChatFlag;
@@ -336,6 +425,7 @@ export class UserHomeComponent implements OnInit {
   }
 
   onSignOut() {
+    this.unsbscribeAppointments();
     this.authService.signOut();
   }
 

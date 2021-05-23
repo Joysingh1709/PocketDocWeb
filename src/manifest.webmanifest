@@ -3,7 +3,7 @@
   "short_name": "PocketDoc",
   "theme_color": "#147efb",
   "background_color": "#147efb",
-  "display": "standalone",
+  "display": "minimal-ui",
   "scope": "./",
   "start_url": "./",
   "icons": [

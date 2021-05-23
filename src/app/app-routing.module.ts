@@ -57,6 +57,7 @@ const routes: Routes = [
     canActivate: [AngularFireAuthGuard],
     data: { authGuardPipe: redirectUnauthorizedToLogin, role: 'user' },
     children: [
+      { path: 'profile-update', component: UpdateProfileComponent },
       { path: 'profile-update', component: UpdateProfileComponent }
     ]
   },

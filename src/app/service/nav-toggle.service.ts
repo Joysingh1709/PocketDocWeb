@@ -12,6 +12,9 @@ export class NavToggleService {
   private showLoadingSource = new BehaviorSubject(true);
   currentLoadingShow = this.showLoadingSource.asObservable();
 
+  private emailLoadingSource = new BehaviorSubject(false);
+  currentEmailLoadingShow = this.emailLoadingSource.asObservable();
+
   private toggleSource = new BehaviorSubject(false);
   currentToggle = this.toggleSource.asObservable();
 
@@ -30,5 +33,10 @@ export class NavToggleService {
   //changes current toggle value
   changeLoadingShowData(data: boolean) {
     this.showLoadingSource.next(data);
+  }
+
+  //changes current toggle value
+  changeEmailLoading(data: boolean) {
+    this.emailLoadingSource.next(data);
   }
 }

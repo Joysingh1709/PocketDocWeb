@@ -322,22 +322,22 @@
     </mat-expansion-panel>
 </div>
 
-<div class="msg-btn" style="cursor: pointer;" (click)="onChatOpen()" *ngIf="!openChatFlag">
-    <ng-lottie [options]="options" width="100px" height="100px" [styles]="styles"
-        (animationCreated)="handleAnimation($event)" MessengerAnime [playStopRefAnime]="animeMessengerRef">
-    </ng-lottie>
-    <mat-icon MessengerAnime [playStopRefAnime]="animeMessengerRef"> message</mat-icon>
-</div>
-
-<!-- <ngx-spinner bdColor="rgb(20, 126, 251)" size="large" color="#fff" type="ball-atom" [fullScreen]="true">
-    <p class="verify-text"><a href="https://gmail.com" target="_blank">We have sent you a mail for email verification on
+<ngx-spinner [name]="emailLoader" bdColor="rgb(20, 126, 251)" size="large" color="#fff" type="ball-atom" [fullScreen]="true">
+    <p class="verify-text"><a style="color: #fff;" href="https://gmail.com" target="_blank">We have sent you a mail for email verification on
             email address : {{email}} <mat-icon>open_in_new</mat-icon></a></p>
     <p class="or-txt">Or</p>
     <p class="sign-out" (click)="onSignOut()">Sign Out</p>
     <p class="verify-text2">We are waiting for you, while you can go verify you email</p>
 
     <button class="resend-btn" (click)="resendVerification()" mat-button>Resend</button>
-</ngx-spinner> -->
+</ngx-spinner>
+
+<div class="msg-btn" style="cursor: pointer;" (click)="onChatOpen()" *ngIf="!openChatFlag">
+    <ng-lottie [options]="options" width="100px" height="100px" [styles]="styles"
+        (animationCreated)="handleAnimation($event)" MessengerAnime [playStopRefAnime]="animeMessengerRef">
+    </ng-lottie>
+    <mat-icon MessengerAnime [playStopRefAnime]="animeMessengerRef"> message</mat-icon>
+</div>
 
 <app-chat [@chatAnime] class="chat-box animate__animated animate__bounceInUp" *ngIf="openChatFlag"
     (messageEvent)="onChatClose($event)"></app-chat>

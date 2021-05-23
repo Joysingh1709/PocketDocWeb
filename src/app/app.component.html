@@ -9,32 +9,32 @@
                 <mat-icon #itemIcon mat-list-icon>event_note</mat-icon>
                 <div mat-line #itemName>Appointments</div>
             </mat-list-item>
-            
+
 
             <mat-list-item mat-ripple>
                 <mat-icon mat-list-icon>assignment</mat-icon>
                 <div mat-line>OPD</div>
             </mat-list-item>
-            
+
 
             <mat-list-item mat-ripple>
                 <mat-icon mat-list-icon>forum</mat-icon>
                 <div mat-line>Messages</div>
             </mat-list-item>
-            
+
 
             <mat-list-item mat-ripple>
                 <mat-icon mat-list-icon>list_alt</mat-icon>
                 <div mat-line>Medical Records</div>
             </mat-list-item>
-            
+
 
             <mat-list-item mat-ripple>
                 <mat-icon mat-list-icon>fact_check</mat-icon>
                 <div mat-line>Test Results</div>
             </mat-list-item>
-            
-            
+
+
             <mat-list-item mat-ripple>
                 <mat-icon mat-list-icon>text_snippet</mat-icon>
                 <div mat-line>Prescriptions</div>
@@ -49,7 +49,7 @@
                 <mat-icon mat-list-icon>logout</mat-icon>
                 <div mat-line>Logout</div>
             </mat-list-item>
-                    
+
         </mat-list>
 
     </mat-sidenav>
@@ -60,5 +60,18 @@
 </mat-sidenav-container>
 
 
-<ngx-spinner bdColor="rgb(255, 255, 255)" size="large" color="#147EFB" type="ball-atom" [fullScreen]="true">
+<ngx-spinner [name]="homeScreenLoader" bdColor="rgb(255, 255, 255)" size="large" color="#147EFB" type="ball-atom"
+    [fullScreen]="true">
+</ngx-spinner>
+
+<ngx-spinner [name]="emailLoader" *ngIf="authUserData" bdColor="rgb(20, 126, 251)" size="large" color="#fff"
+    type="ball-atom" [fullScreen]="true">
+    <p class="verify-text"><a style="color: #fff;" href="https://gmail.com" target="_blank">We have sent you a mail for
+            email verification on
+            email address : {{authUserData.email}} <mat-icon>open_in_new</mat-icon></a></p>
+    <p class="or-txt">Or</p>
+    <p class="sign-out" (click)="onSignOut()">Sign Out</p>
+    <p class="verify-text2">We are waiting for you, while you can go verify you email</p>
+
+    <button class="resend-btn" (click)="resendVerification()" mat-button>Resend</button>
 </ngx-spinner>

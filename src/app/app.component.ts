@@ -21,7 +21,12 @@ export class AppComponent {
   toggle: boolean = false;
   showNav: boolean = false;
 
+  authUserData: any;
+  emailLoader: string = "emailLoader";
+
   mode: string = "side";
+
+  homeScreenLoader: string = "homeScreenLoader";
   hasBackdrop = false;
 
   fullUserData: any;
@@ -63,9 +68,17 @@ export class AppComponent {
 
     this.toggleService.currentLoadingShow.subscribe((val) => {
       if (val) {
-        this.spinner.show();
+        this.spinner.show(this.homeScreenLoader);
       } else {
-        this.spinner.hide();
+        this.spinner.hide(this.homeScreenLoader);
+      }
+    });
+
+    this.toggleService.currentEmailLoadingShow.subscribe((val) => {
+      if (val) {
+        this.spinner.show(this.emailLoader);
+      } else {
+        this.spinner.hide(this.emailLoader);
       }
     });
 
@@ -80,6 +93,8 @@ export class AppComponent {
     this.afAuth.onAuthStateChanged(async (user) => {
 
       if (user) {
+
+        this.authUserData = user;
 
         if (user.photoURL === "doctor") {
 
@@ -115,10 +130,15 @@ export class AppComponent {
     });
   }
 
+  resendVerification() {
+    this.authUserData.sendEmailVerification();
+  }
+
   onSignOut() {
     this.authService.signOut().then(() => {
       this.toggleService.changeNavShowData(false);
       this.toggleService.changeToggleData(false);
+      this.toggleService.changeEmailLoading(false);
     });
   }
 

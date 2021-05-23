@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { flatten } from '@angular/compiler';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as firebase from 'firebase';
 import { AnimationItem } from 'lottie-web';
@@ -20,15 +22,29 @@ export class UpdateProfileDialogComponent implements OnInit {
   maxDate: Date;
 
   genderList: string[] = ['Male', 'Female', 'Other'];
+  addClass: boolean = false;
 
-  constructor(private _formBuilder: FormBuilder) {
+  fileFormGroup: FormGroup;
+
+  constructor(private _formBuilder: FormBuilder,
+    private breakpointObserver: BreakpointObserver) {
     // Set the minimum to January 1st 20 years in the past and December 31st a year in the future.
     const currentYear = new Date().getFullYear();
     this.minDate = new Date(currentYear - 20, 0, 1);
     this.maxDate = new Date(currentYear + 1, 11, 31);
   }
 
+  @ViewChild('stepper', { static: false }) divStepper: ElementRef;
+
   ngOnInit(): void {
+
+    this.breakpointObserver.observe('(max-width: 599px)').subscribe((result) => {
+      if (result.matches) {
+        this.showAnime = false;
+      } else {
+        this.showAnime = true;
+      }
+    });
 
 
     // var user = firebase.auth().currentUser;
@@ -41,7 +57,7 @@ export class UpdateProfileDialogComponent implements OnInit {
     //   console.log(res);
     // }).catch((err) => console.log("old password is wrong"+err))
 
-    this.showAnime = true;
+    // this.showAnime = true;
     this.firstFormGroup = this._formBuilder.group({
       phoneNo: [, Validators.required],
       dob: ['', Validators.required],
@@ -54,6 +70,10 @@ export class UpdateProfileDialogComponent implements OnInit {
       pincode: ['', [Validators.required]],
       state: ['', [Validators.required]],
       landmark: ['', [Validators.required]]
+    });
+
+    this.fileFormGroup = this._formBuilder.group({
+      file: ['']
     });
   }
 
@@ -69,6 +89,10 @@ export class UpdateProfileDialogComponent implements OnInit {
 
   animationCreated(animationItem: AnimationItem): void {
     console.log(animationItem);
+  }
+
+  onSubmit() {
+    this.addClass = true;
   }
 
 }

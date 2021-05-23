@@ -1,9 +1,4 @@
 .text{
-    text-align: center;
-    /* position: relative; */
-    /* width: 170px; */
-    /* top: -193px;
-    left: 254px; */
     color: #000;
     font-size: 1.2rem;
 }
@@ -17,7 +12,7 @@
 }
 
 .text h2 {
-    margin: 0px 10px 10px;
+    margin: 0px 0px 10px;
     text-align: left;
 }
 
@@ -45,4 +40,54 @@ input::-webkit-inner-spin-button {
 mat-form-field{
     width: 200px;
     margin-right: 10px;
+}
+
+.text-mobile p {
+    font-size: 0.8rem;
+    margin-top: 20px;
+    color: #8b8b8b;
+}
+
+.profile-picture-box{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex: 1;
+    flex-wrap: wrap;
+
+    position: relative;
+    top: -70%;
+}
+
+.dp{
+    width: 150px;
+    height: 150px;
+    margin-left: 40px;
+    margin-bottom: 20px;
+    margin-right: 40px;
+    border-radius: 50%;
+    background-color: #000;
+}
+
+.files-form{
+    width: 100%;
+}
+
+@media (max-width: 600px) {
+    .dp{
+        margin-left: 0 !important;
+        margin-right: 20px;
+    }
+}
+
+.profile-details h2{
+    font-size: 24px;
+}
+
+.profile-details p{
+    color: rgba(0, 0, 0, 0.5);
+}
+
+::ng-deep.mat-dialog-container::-webkit-scrollbar{
+    display: none;
 }
