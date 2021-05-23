@@ -1,3 +1,8 @@
+<ng-progress id="appProgress" direction=ltr+ speed=200 trickleSpeed=300 debounceTime=0 meteor=true [spinner]=false
+    spinnerPosition=right [thick]=true [fixed]=true min=8 max=100 ease=linear color=#fff (started)="onStarted()"
+    (completed)="onCompleted()">
+</ng-progress>
+
 <app-profile-nav [userData]="fullUserData" *ngIf="showNav"></app-profile-nav>
 
 <mat-sidenav-container class="example-container" [hasBackdrop]="hasBackdrop">
@@ -60,9 +65,9 @@
 </mat-sidenav-container>
 
 
-<ngx-spinner [name]="homeScreenLoader" bdColor="rgb(255, 255, 255)" size="large" color="#147EFB" type="ball-atom"
+<!-- <ngx-spinner [name]="homeScreenLoader" bdColor="rgb(255, 255, 255)" size="large" color="#147EFB" type="ball-atom"
     [fullScreen]="true">
-</ngx-spinner>
+</ngx-spinner> -->
 
 <ngx-spinner [name]="emailLoader" *ngIf="authUserData" bdColor="rgb(20, 126, 251)" size="large" color="#fff"
     type="ball-atom" [fullScreen]="true">

@@ -1,18 +1,19 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
-import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
-import * as firebase from 'firebase';
-import { NgxSpinnerService } from 'ngx-spinner';
+import firebase from 'firebase/app';
+// import { NgxSpinnerService } from 'ngx-spinner';
 import { Observable } from 'rxjs';
 import { async } from 'rxjs/internal/scheduler/async';
 import { ChatService } from './service/chat.service';
 import { FirebaseAuthService } from './service/firebase-auth.service';
 import { WindowScrollService } from './service/window-scroll.service';
 import { NavToggleService } from './service/nav-toggle.service';
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { NgProgress, NgProgressRef } from 'ngx-progressbar';
 
 @Component({
-  selector: 'app-root',
+  selector: 'pocket-doc-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
@@ -33,6 +34,8 @@ export class AppComponent {
 
   scrollY$: number;
 
+  progressRef: NgProgressRef;
+
   onScrollSide(e) {
     this.windowScrollService.scrollY.next(this.getYPosition(e));
   }
@@ -44,8 +47,9 @@ export class AppComponent {
   constructor(private toggleService: NavToggleService,
     private router: Router,
     private windowScrollService: WindowScrollService,
-    private spinner: NgxSpinnerService,
+    // private spinner: NgxSpinnerService,
     private authService: FirebaseAuthService,
+    private progress: NgProgress,
     private breakpointObserver: BreakpointObserver,
     private afAuth: AngularFireAuth,
     private dataService: ChatService
@@ -53,7 +57,32 @@ export class AppComponent {
     // Nothing in constructor
   }
 
+  startLoading() {
+    this.progressRef.start();
+  }
+
+  stopLoading() {
+    this.progressRef.complete();
+  }
+
+  onStarted() {
+    console.log("started Progress");
+  }
+
+  onCompleted() {
+    console.log("completed Progress");
+  }
+
+  // changeProgressColor() {
+  //   this.progressRef.setConfig({ color: 'green' });
+  // }
+
+  ngAfterViewInit(): void {
+    this.startLoading();
+  }
+
   ngOnInit(): void {
+    this.progressRef = this.progress.ref('appProgress');
 
     this.breakpointObserver.observe('(max-width: 599px)').subscribe((result) => {
       if (result.matches) {
@@ -68,17 +97,17 @@ export class AppComponent {
 
     this.toggleService.currentLoadingShow.subscribe((val) => {
       if (val) {
-        this.spinner.show(this.homeScreenLoader);
+        this.startLoading()
       } else {
-        this.spinner.hide(this.homeScreenLoader);
+        this.stopLoading();
       }
     });
 
     this.toggleService.currentEmailLoadingShow.subscribe((val) => {
       if (val) {
-        this.spinner.show(this.emailLoader);
+        this.startLoading();
       } else {
-        this.spinner.hide(this.emailLoader);
+        this.stopLoading();
       }
     });
 

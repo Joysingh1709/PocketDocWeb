@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { firestore } from 'firebase';
+import firebase from 'firebase/app';
 import { chatWin } from 'src/app/animations/animation';
 import { ChatService } from 'src/app/service/chat.service';
 import { FirebaseAuthService } from 'src/app/service/firebase-auth.service';
@@ -49,7 +49,7 @@ export class ChatDocComponent implements OnInit {
       this.userPhotoURL = user.photoURL;
       console.log(this.userID);
 
-      firestore().collection('chatRooms')
+      firebase.firestore().collection('chatRooms')
         .where("doctorId", "==", user.uid)
         .orderBy('lastUpdatedDate', 'desc')
         .onSnapshot(querysnapshot => {
@@ -70,13 +70,13 @@ export class ChatDocComponent implements OnInit {
     this.chatProfileImage = this.profiles[i].userProfilePicUrl;
     this.chatDataToPass = this.profiles[i];
 
-    firestore().collection('chatRooms').doc(this.profiles[i].roomId)
+    firebase.firestore().collection('chatRooms').doc(this.profiles[i].roomId)
       .update({ doctorMessageCount: 0 })
       .then((res) => {
         console.log(res);
       })
 
-    firestore().collection('chatRooms').doc(this.profiles[i].roomId)
+      firebase.firestore().collection('chatRooms').doc(this.profiles[i].roomId)
       .collection('messages')
       .orderBy('createdDate', 'asc')
       .onSnapshot(querysnapshot => {
@@ -93,7 +93,7 @@ export class ChatDocComponent implements OnInit {
   }
 
   onBack() {
-    firestore().collection('chatRooms').doc(this.chatDataToPass.roomId)
+    firebase.firestore().collection('chatRooms').doc(this.chatDataToPass.roomId)
       .update({ userMessageCount: 0 })
       .then((res) => {
         console.log(res);

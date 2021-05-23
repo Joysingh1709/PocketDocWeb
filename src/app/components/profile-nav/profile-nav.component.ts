@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import * as firebase from 'firebase';
+import firebase from 'firebase/app';
 import { AnimationOptions } from 'ngx-lottie';
 import { ChatService } from 'src/app/service/chat.service';
-import { firestore } from 'firebase';
+import firestore from 'firebase/app';
 import { FirebaseAuthService } from 'src/app/service/firebase-auth.service';
 import { NavToggleService } from 'src/app/service/nav-toggle.service';
 
@@ -49,7 +49,7 @@ export class ProfileNavComponent implements OnInit {
       this.userphotoURL = user.photoURL;
       console.log(this.userID);
 
-      firestore().collection('chatRooms')
+      firebase.firestore().collection('chatRooms')
         .where("userId", "==", user.uid)
         .orderBy('lastUpdatedDate', 'desc')
         .onSnapshot(querysnapshot => {

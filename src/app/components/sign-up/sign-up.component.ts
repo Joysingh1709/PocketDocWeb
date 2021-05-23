@@ -4,7 +4,7 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { fadeIn } from 'src/app/animations/animation';
 import { FirebaseAuthService } from 'src/app/service/firebase-auth.service';
-import * as firebase from 'firebase';
+import firebase from 'firebase/app';
 import { NavToggleService } from 'src/app/service/nav-toggle.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {

@@ -3,12 +3,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import * as firebase from 'firebase';
-import { firestore } from 'firebase/app'
+import firebase from 'firebase/app';
 import { AnimationItem } from 'lottie-web';
-import { Ng2ImgMaxService } from 'ng2-img-max';
 import { AnimationOptions } from 'ngx-lottie';
-import { NgxSpinnerService } from 'ngx-spinner';
+// import { NgxSpinnerService } from 'ngx-spinner';
 import { chatAnime, exapnButton } from 'src/app/animations/animation';
 import { ChatService } from 'src/app/service/chat.service';
 import { FirebaseAuthService } from 'src/app/service/firebase-auth.service';
@@ -50,14 +48,14 @@ export class HospitalComponent implements OnInit {
   breakpointFlag: boolean = false;
 
   constructor(private router: Router,
-    private spinner: NgxSpinnerService,
+    // private spinner: NgxSpinnerService,
     private authService: FirebaseAuthService,
     private afAuth: AngularFireAuth,
     private mediaMatcher: MediaMatcher,
     private breakpointObserver: BreakpointObserver,
     private navService: NavToggleService,
     private dataService: ChatService,
-    public dialog: MatDialog,) {
+    public dialog: MatDialog) {
 
     this.navService.changeLoadingShowData(true);
 
@@ -83,7 +81,7 @@ export class HospitalComponent implements OnInit {
                 // console.log(user.emailVerified);
 
                 if (user.emailVerified) {
-                  this.spinner.hide();
+                  // this.spinner.hide();
                   clearInterval();
                   //reload page so that it could fetch the user data again
                   window.location.reload();
@@ -94,13 +92,13 @@ export class HospitalComponent implements OnInit {
               console.log(err)
             })
 
-          this.spinner.show();
+          // this.spinner.show();
 
         } else {
 
           console.log("checking if user data is in database or not");
 
-          firestore().collection("doctors")
+          firebase.firestore().collection("doctors")
             .doc(user.uid)
             .get().then((doc) => {
               if (doc.exists) {
@@ -172,16 +170,16 @@ export class HospitalComponent implements OnInit {
                   specializations: [],
                   verified: true
                 }
-                firestore().collection("doctors").doc(user.uid).set(userData)
+                firebase.firestore().collection("doctors").doc(user.uid).set(userData)
                   .then((docRef: any) => {
                     if (docRef) {
 
                       //creating additional data in document
-                      firestore().collection("doctors").doc(user.uid)
+                      firebase.firestore().collection("doctors").doc(user.uid)
                         .collection("reviews")
                         .add({})
 
-                      firestore().collection("doctors").doc(user.uid)
+                      firebase.firestore().collection("doctors").doc(user.uid)
                         .collection("verificationDocs")
                         .add({})
 

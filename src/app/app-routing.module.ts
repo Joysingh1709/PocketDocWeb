@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { UserHomeComponent } from './components/user-home/user-home.component';
 
@@ -10,7 +10,7 @@ import { MainLoginComponent } from './components/login/login/main-login.componen
 import { ResetPasswordComponent } from './components/login/reset-password/reset-password.component';
 import { HomeComponent } from './components/home/home.component';
 import { DoctorHomeComponent } from './components/doctor-home/doctor-home.component';
-import * as firebase from 'firebase';
+import firebase from 'firebase';
 import { DoctorSignUpComponent } from './components/doctor-sign-up/doctor-sign-up.component';
 import { HospitalComponent } from './components/hospital/hospital.component';
 

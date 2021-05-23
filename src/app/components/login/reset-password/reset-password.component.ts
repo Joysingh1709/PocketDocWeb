@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { fadeIn } from 'src/app/animations/animation';
 import { AnimationItem } from 'lottie-web';
-import * as firebase from 'firebase';
+import firebase from 'firebase/app';
 import { AnimationOptions } from 'ngx-lottie';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -103,21 +103,21 @@ export class ResetPasswordComponent implements OnInit {
         console.log("res started");
 
         console.log("res stoped");
-        
+
         setTimeout(() => {
-          this.router.navigate(['login']);          
+          this.router.navigate(['login']);
         }, 4000);
       })
-      .catch((err) => {
-        if(err){
-          console.log(err);
-          if(err.message === "There is no user record corresponding to this identifier. The user may have been deleted."){
-            console.log("error is user not found");
-            this.loadReset = false;
-          }else{
+        .catch((err) => {
+          if (err) {
+            console.log(err);
+            if (err.message === "There is no user record corresponding to this identifier. The user may have been deleted.") {
+              console.log("error is user not found");
+              this.loadReset = false;
+            } else {
+            }
           }
-        }
-      })
+        })
       this.animationLoad = !this.animationLoad;
 
     } else {

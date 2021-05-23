@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Host
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { MatDialog } from '@angular/material/dialog';
-import * as firebase from 'firebase';
-import { firestore } from 'firebase';
+import firebase from 'firebase/app';
+import firestore from 'firebase/app';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ImagePreviewComponent } from 'src/app/dialogs/image-preview/image-preview.component';
@@ -63,7 +63,7 @@ export class ChatBodyComponent implements OnInit {
 
     this.dataService.currentProfileData.subscribe((data) => this.currentUserData = data);
 
-    // firestore().collection('chatRooms').doc(this.chatDataPassed.roomId).collection('messages')
+    // firebase.firestore().collection('chatRooms').doc(this.chatDataPassed.roomId).collection('messages')
     //   .orderBy('createdDate', 'asc')
     //   .onSnapshot(querysnapshot => {
     //     console.log(querysnapshot.size);
@@ -235,7 +235,7 @@ export class ChatBodyComponent implements OnInit {
                 .collection('messages')
                 .add({
                   body: "",
-                  createdDate: firestore.Timestamp.fromDate(new Date()),
+                  createdDate: firebase.firestore.Timestamp.fromDate(new Date()),
                   mediaUrl: url,
                   senderId: firebase.auth().currentUser.uid,
                   status: false,
@@ -249,8 +249,8 @@ export class ChatBodyComponent implements OnInit {
                     .doc(this.chatDataPassed.roomId)
                     .update({
                       lastMessage: "📸",
-                      lastUpdatedDate: firestore.Timestamp.fromDate(new Date()),
-                      userMessageCount: firestore.FieldValue.increment(1)
+                      lastUpdatedDate: firebase.firestore.Timestamp.fromDate(new Date()),
+                      userMessageCount: firebase.firestore.FieldValue.increment(1)
                     })
                     .then(ress => {
                       console.log(ress);
@@ -283,7 +283,7 @@ export class ChatBodyComponent implements OnInit {
         .collection('messages')
         .add({
           body: this.inputMessage,
-          createdDate: firestore.Timestamp.fromDate(new Date()),
+          createdDate: firebase.firestore.Timestamp.fromDate(new Date()),
           mediaUrl: "",
           senderId: firebase.auth().currentUser.uid,
           status: false,
@@ -296,15 +296,15 @@ export class ChatBodyComponent implements OnInit {
             .doc(this.chatDataPassed.roomId)
             .update({
               lastMessage: msg,
-              lastUpdatedDate: firestore.Timestamp.fromDate(new Date()),
-              userMessageCount: firestore.FieldValue.increment(1)
+              lastUpdatedDate: firebase.firestore.Timestamp.fromDate(new Date()),
+              userMessageCount: firebase.firestore.FieldValue.increment(1)
             })
             .then(ress => {
               console.log(ress);
             })
         })
 
-      // firestore().collection('chatRooms')
+      // firebase.firestore().collection('chatRooms')
       //   .doc(this.chatDataPassed.roomId)
       //   .collection('messages')
       //   .add({

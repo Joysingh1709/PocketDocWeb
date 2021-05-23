@@ -3,7 +3,7 @@ import { fadeIn } from '../../animations/animation';
 import { FirebaseAuthService } from '../../service/firebase-auth.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Location } from '@angular/common';
-import * as firebase from 'firebase/app';
+import firebase from 'firebase/app';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';

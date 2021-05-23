@@ -1,12 +1,12 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FirebaseAuthService } from 'src/app/service/firebase-auth.service';
-import * as firebase from 'firebase/app';
-import { firestore } from 'firebase/app';
+import firebase from 'firebase/app';
+import firestore from 'firebase/app';
 import 'firebase/storage';
-import { NgxSpinnerService } from "ngx-spinner";
+// import { NgxSpinnerService } from "ngx-spinner";
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { Ng2ImgMaxService } from 'ng2-img-max';
+// import { Ng2ImgMaxService } from 'ng2-img-max';
 import { MatDialog } from '@angular/material/dialog';
 import { ChatService } from 'src/app/service/chat.service';
 import { AnimationOptions } from 'ngx-lottie';
@@ -59,7 +59,7 @@ export class UserHomeComponent implements OnInit {
   firstAppointmentFetch: boolean = true;
 
   constructor(private router: Router,
-    private spinner: NgxSpinnerService,
+    // private spinner: NgxSpinnerService,
     private authService: FirebaseAuthService,
     private afAuth: AngularFireAuth,
     private breakpointObserver: BreakpointObserver,
@@ -67,7 +67,8 @@ export class UserHomeComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private dataService: ChatService,
     public dialog: MatDialog,
-    private ng2ImgMax: Ng2ImgMaxService) {
+    // private ng2ImgMax: Ng2ImgMaxService
+    ) {
 
     this.navService.changeLoadingShowData(true);
 
@@ -118,7 +119,7 @@ export class UserHomeComponent implements OnInit {
           console.log("checking if user data is in database or not");
 
           //get user 
-          firestore().collection("users")
+          firebase.firestore().collection("users")
             .doc(user.uid)
             .get().then((doc) => {
 
@@ -170,22 +171,22 @@ export class UserHomeComponent implements OnInit {
                   pincode: "",
                   verificationType: "",
                   verificatonDocUrl: "",
-                  userCreateTimestamp: firestore.Timestamp.now()
+                  userCreateTimestamp: firebase.firestore.Timestamp.now()
                 }
 
-                firestore().collection("users").doc(user.uid).set(userData)
+                firebase.firestore().collection("users").doc(user.uid).set(userData)
                   .then(docRef => {
                     //creating additional data in document
 
                     console.log("creating additional data in document");
 
-                    firestore().collection('users').doc(user.uid).collection("medicalHistory").doc().set({
+                    firebase.firestore().collection('users').doc(user.uid).collection("medicalHistory").doc().set({
                       url: 'https://firebasestorage.googleapis.com/v0/b/pocketdoc-f1700.appspot.com/o/reports%2FNAMAN-SUKHWANI-Participant-Certificate.pdf?alt=media&token=e87156d3-b171-43cf-9f4e-975ac53dfb52',
                       name: "Sample Report",
-                      dateCreated: firestore.Timestamp.now(),
+                      dateCreated: firebase.firestore.Timestamp.now(),
                       appointments: []
                     }).catch(err => console.log(err))
-                    firestore().collection('users').doc(user.uid).collection("paymentDetails").doc().set({}).catch(err => console.log(err))
+                    firebase.firestore().collection('users').doc(user.uid).collection("paymentDetails").doc().set({}).catch(err => console.log(err))
 
                     const dialogRef = this.dialog.open(UpdateProfileDialogComponent, {
                       hasBackdrop: true,
@@ -263,14 +264,14 @@ export class UserHomeComponent implements OnInit {
 
     if (user.photoURL === "user") {
 
-      this.unsbscribeAppointments = firestore().collection('appointments')
+      this.unsbscribeAppointments = firebase.firestore().collection('appointments')
         .where('userId', '==', user.uid)
         .orderBy('time', 'desc')
         .onSnapshot(querySnapshot => {
           return Promise.all(querySnapshot.docs.map(async appointment => {
             return {
               id: appointment.id,
-              doctorData: await getDoctorData(appointment.data().doctorId),
+              doctorData: await this.getDoctorData(appointment.data().doctorId),
               ...appointment.data()
             }
           }))
@@ -296,6 +297,29 @@ export class UserHomeComponent implements OnInit {
 
   }
 
+  updateAppointments(appointments) {
+
+    const dayStart = new Date()
+    dayStart.setHours(0, 0, 0, 0)
+
+    var appointmentsCurrent = appointments.filter((appointment) => {
+      return appointment.time.toDate() >= dayStart
+    })
+
+    var appointmentsPrevious = appointments.filter((appointment) => {
+      return appointment.time.toDate() <= dayStart
+    })
+
+    var appointmentsSchduled = appointments.filter((appointment) => {
+      return appointment.time.toDate() >= dayStart && (appointment.status == "accepted")
+    })
+    // settlePreviousPendingAppointments(appointmentsPrevious);
+    // dispatch(updateAppointmentsCurrent(appointmentsCurrent))
+    // dispatch(updateAppointmentsPrevious(appointmentsPrevious))
+    // dispatch(updateAppointmentsSchduled(appointmentsSchduled.reverse()))
+    // dispatch(updateAppointmentsAll(appointments))
+  }
+
   addAppointments(appointments) {
 
     const dayStart = new Date()
@@ -314,11 +338,20 @@ export class UserHomeComponent implements OnInit {
     })
 
     // settlePreviousPendingAppointments(appointmentsPrevious);
-
     // dispatch(addAppointmentsCurrent(appointmentsCurrent.reverse()))
     // dispatch(addAppointmentsPrevious(appointmentsPrevious))
     // dispatch(addAppointmentsSchduled(appointmentsSchduled.reverse()))
     // dispatch(addAppointmentsAll(appointments));
+  }
+
+  getDoctorData(uid) {
+    return firebase.firestore().collection('doctors').doc(uid).get()
+      .then(data => {
+        return data.data();
+      })
+      .catch(err => {
+        console.log(err);
+      })
   }
 
   ngAfterViewInit(): void {
@@ -451,59 +484,59 @@ export class UserHomeComponent implements OnInit {
     }
   }
 
-  onimageUpload(event) {
-    const img = event.target.files[0];
-    console.log(img);
+  // onimageUpload(event) {
+  //   const img = event.target.files[0];
+  //   console.log(img);
 
-    this.ng2ImgMax.resizeImage(img, 400, 400).subscribe(
-      result => {
-        console.log(result);
-        let fr2 = new FileReader();
-        fr2.onload = () => {
-          this.imgAfter = fr2.result;
-        };
-        fr2.readAsDataURL(result);
+  //   this.ng2ImgMax.resizeImage(img, 400, 400).subscribe(
+  //     result => {
+  //       console.log(result);
+  //       let fr2 = new FileReader();
+  //       fr2.onload = () => {
+  //         this.imgAfter = fr2.result;
+  //       };
+  //       fr2.readAsDataURL(result);
 
-        // upload resized img on firebase bucket
-        var metadata = {
-          contentType: 'image/jpeg'
-        };
+  //       // upload resized img on firebase bucket
+  //       var metadata = {
+  //         contentType: 'image/jpeg'
+  //       };
 
-        var storageRef = firebase.storage().ref();
-        var uploadTask = storageRef.child('images/' + result.name).put(result, metadata);
+  //       var storageRef = firebase.storage().ref();
+  //       var uploadTask = storageRef.child('images/' + result.name).put(result, metadata);
 
-        uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, (snapshot) => {
-          var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log('Upload is ' + progress + '% done');
-          this.progress = progress;
+  //       uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, (snapshot) => {
+  //         var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+  //         console.log('Upload is ' + progress + '% done');
+  //         this.progress = progress;
 
-        }, (error: any) => {
+  //       }, (error: any) => {
 
-          switch (error.code) {
-            case 'storage/unauthorized':
-              // User doesn't have permission to access the object
-              break;
+  //         switch (error.code) {
+  //           case 'storage/unauthorized':
+  //             // User doesn't have permission to access the object
+  //             break;
 
-            case 'storage/canceled':
-              // User canceled the upload
-              break;
+  //           case 'storage/canceled':
+  //             // User canceled the upload
+  //             break;
 
-            case 'storage/unknown':
-              // Unknown error occurred, inspect error.serverResponse
-              break;
-          }
-        }, () => {
-          uploadTask.snapshot.ref.getDownloadURL().then((url) => {
-            console.log('File available at', url);
-            this.imgURL = url;
-          });
-        });
-      },
-      error => {
-        console.log('😢 Oh no!', error);
-      }
-    );
+  //           case 'storage/unknown':
+  //             // Unknown error occurred, inspect error.serverResponse
+  //             break;
+  //         }
+  //       }, () => {
+  //         uploadTask.snapshot.ref.getDownloadURL().then((url) => {
+  //           console.log('File available at', url);
+  //           this.imgURL = url;
+  //         });
+  //       });
+  //     },
+  //     error => {
+  //       console.log('😢 Oh no!', error);
+  //     }
+  //   );
 
-  }
+  // }
 
 }
