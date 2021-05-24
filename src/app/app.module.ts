@@ -71,6 +71,8 @@ import { ChatDocComponent } from './components/chat-doc/chat-doc.component';
 import { ChatDocBodyComponent } from './components/chat-doc/chat-doc-body/chat-doc-body.component';
 import { HospitalComponent } from './components/hospital/hospital.component';
 import { BookAppointmentComponent } from './components/book-appointment/book-appointment.component';
+import { SkeletonLoaderModule } from './modules/skeleton-loader/skeleton-loader.module';
+import { ShowDoctorComponent } from './dialogs/show-doctor/show-doctor.component';
 
 export function playerFactory() {
   return player;
@@ -100,7 +102,8 @@ export function playerFactory() {
     ChatDocComponent,
     ChatDocBodyComponent,
     HospitalComponent,
-    BookAppointmentComponent
+    BookAppointmentComponent,
+    ShowDoctorComponent
   ],
   imports: [
     BrowserModule,
@@ -132,6 +135,7 @@ export function playerFactory() {
     MatDatepickerModule,
     MatStepperModule,
     NgProgressModule,
+    SkeletonLoaderModule,
     // NgxSpinnerModule,
     FormsModule,
     LottieModule.forRoot({ player: playerFactory }),

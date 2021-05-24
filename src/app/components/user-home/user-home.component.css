@@ -11,6 +11,12 @@
     height: 320px;
 }
 
+.no-appointments-msg{
+    text-align: center;
+    color: #00000087;
+    font-size: 18px;
+}
+
 .btn{
     background-color: #f44336;
     color: #FFF;

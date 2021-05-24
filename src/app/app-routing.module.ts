@@ -13,6 +13,7 @@ import { DoctorHomeComponent } from './components/doctor-home/doctor-home.compon
 import firebase from 'firebase';
 import { DoctorSignUpComponent } from './components/doctor-sign-up/doctor-sign-up.component';
 import { HospitalComponent } from './components/hospital/hospital.component';
+import { BookAppointmentComponent } from './components/book-appointment/book-appointment.component';
 
 // const role = firebase.auth().currentUser.photoURL;
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/login']);
@@ -58,7 +59,7 @@ const routes: Routes = [
     data: { authGuardPipe: redirectUnauthorizedToLogin, role: 'user' },
     children: [
       { path: 'profile-update', component: UpdateProfileComponent },
-      { path: 'profile-update', component: UpdateProfileComponent }
+      { path: 'book-Appointment', component: BookAppointmentComponent }
     ]
   },
   {

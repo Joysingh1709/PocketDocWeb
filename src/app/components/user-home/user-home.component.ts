@@ -1,9 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FirebaseAuthService } from 'src/app/service/firebase-auth.service';
 import firebase from 'firebase/app';
-import firestore from 'firebase/app';
 import 'firebase/storage';
-// import { NgxSpinnerService } from "ngx-spinner";
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 // import { Ng2ImgMaxService } from 'ng2-img-max';
@@ -15,6 +13,7 @@ import { chatAnime, exapnButton } from 'src/app/animations/animation';
 import { NavToggleService } from 'src/app/service/nav-toggle.service';
 import { BreakpointObserver, MediaMatcher } from '@angular/cdk/layout';
 import { UpdateProfileDialogComponent } from 'src/app/dialogs/update-profile-dialog/update-profile-dialog.component';
+import { ShowDoctorComponent } from 'src/app/dialogs/show-doctor/show-doctor.component';
 
 @Component({
   selector: 'app-user-home',
@@ -57,18 +56,23 @@ export class UserHomeComponent implements OnInit {
   breakpointFlag: boolean = false;
   unsbscribeAppointments: () => void;
   firstAppointmentFetch: boolean = true;
+  appointmentsCurrent: any;
+  appointmentsPrevious: any;
+  appointmentsSchduled: any;
+
+  appointmentLoading: boolean = true;
+
+  doctorsLoading: boolean = true;
 
   constructor(private router: Router,
-    // private spinner: NgxSpinnerService,
     private authService: FirebaseAuthService,
-    private afAuth: AngularFireAuth,
     private breakpointObserver: BreakpointObserver,
     private navService: NavToggleService,
     private cdr: ChangeDetectorRef,
     private dataService: ChatService,
     public dialog: MatDialog,
     // private ng2ImgMax: Ng2ImgMaxService
-    ) {
+  ) {
 
     this.navService.changeLoadingShowData(true);
 
@@ -250,6 +254,7 @@ export class UserHomeComponent implements OnInit {
   ngOnInit(): void {
     var user = firebase.auth().currentUser;
     this.breakpointObserver.observe('(max-width: 599px)').subscribe((result) => {
+      console.log("Breakpoint Result : ", result)
       if (result.matches) {
         this.navService.changeToggleData(false);
         this.breakpointFlag = true;
@@ -264,6 +269,7 @@ export class UserHomeComponent implements OnInit {
 
     if (user.photoURL === "user") {
 
+      this.appointmentLoading = true;
       this.unsbscribeAppointments = firebase.firestore().collection('appointments')
         .where('userId', '==', user.uid)
         .orderBy('time', 'desc')
@@ -276,12 +282,15 @@ export class UserHomeComponent implements OnInit {
             }
           }))
             .then(list => {
+              console.log("Appointments data => ", list);
               if (this.firstAppointmentFetch) {
                 this.firstAppointmentFetch = false;
                 this.addAppointments(list);
+                this.appointmentLoading = false;
               }
               else {
                 this.updateAppointments(list)
+                this.appointmentLoading = false;
               }
             })
             .catch(err => {
@@ -302,15 +311,17 @@ export class UserHomeComponent implements OnInit {
     const dayStart = new Date()
     dayStart.setHours(0, 0, 0, 0)
 
-    var appointmentsCurrent = appointments.filter((appointment) => {
+    this.apts = appointments;
+
+    this.appointmentsCurrent = appointments.filter((appointment) => {
       return appointment.time.toDate() >= dayStart
     })
 
-    var appointmentsPrevious = appointments.filter((appointment) => {
+    this.appointmentsPrevious = appointments.filter((appointment) => {
       return appointment.time.toDate() <= dayStart
     })
 
-    var appointmentsSchduled = appointments.filter((appointment) => {
+    this.appointmentsSchduled = appointments.filter((appointment) => {
       return appointment.time.toDate() >= dayStart && (appointment.status == "accepted")
     })
     // settlePreviousPendingAppointments(appointmentsPrevious);
@@ -325,15 +336,17 @@ export class UserHomeComponent implements OnInit {
     const dayStart = new Date()
     dayStart.setHours(0, 0, 0, 0)
 
-    var appointmentsCurrent = appointments.filter((appointment) => {
+    this.apts = appointments;
+
+    this.appointmentsCurrent = appointments.filter((appointment) => {
       return appointment.time.toDate() >= dayStart
     })
 
-    var appointmentsPrevious = appointments.filter((appointment) => {
+    this.appointmentsPrevious = appointments.filter((appointment) => {
       return appointment.time.toDate() <= dayStart
     })
 
-    var appointmentsSchduled = appointments.filter((appointment) => {
+    this.appointmentsSchduled = appointments.filter((appointment) => {
       return appointment.time.toDate() >= dayStart && (appointment.status == "accepted")
     })
 
@@ -359,6 +372,7 @@ export class UserHomeComponent implements OnInit {
   }
 
   async getAllDoctors() {
+    this.doctorsLoading = true;
     this.fb.collection("doctors")
       .get()
       .then((querySnap) => {
@@ -366,39 +380,10 @@ export class UserHomeComponent implements OnInit {
         querySnap.forEach((doc) => {
           this.doctors.push(doc.data());
           console.log(this.doctors);
+          this.doctorsLoading = false;
         })
       })
   }
-
-  // async getAllAppointments() {
-  //   this.fb.collection('appointments')
-  //     .where("userId", "==", firebase.auth().currentUser.uid)
-  //     .get()
-  //     .then((querySnapshot) => {
-  //       console.warn("User Appointments data here");
-  //       querySnapshot.forEach((doc) => {
-  //         console.log(doc.id, " => ", doc.data());
-  //         // fetching doctor data
-  //         let d = doc.data();
-
-  //         this.fb.collection("doctors").doc(d.doctorId)
-  //           .get()
-  //           .then(docD => {
-  //             let resData = docD.data();
-  //             let _pushData = {
-  //               doctorName: resData.name,
-  //               specializations: resData.specializations,
-  //               ...doc.data()
-  //             }
-  //             this.apts.push(_pushData);
-  //           })
-
-  //       })
-  //     })
-  //     .catch(function (error) {
-  //       console.log("Error getting documents: ", error);
-  //     });
-  // }
 
   onChatOpen() {
     this.openChatFlag = !this.openChatFlag;
@@ -407,6 +392,21 @@ export class UserHomeComponent implements OnInit {
 
   onChatClose($event) {
     this.openChatFlag = $event;
+  }
+
+  onDoctorSelect(docData) {
+    const dialogRef = this.dialog.open(ShowDoctorComponent, {
+      hasBackdrop: true,
+      // disableClose: true,
+      backdropClass: 'bckdrop',
+      width: "600px",
+      data: docData
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+
   }
 
   options: AnimationOptions = {
