@@ -180,8 +180,14 @@ background: rgba(0, 0, 0, 0.5);
 
 
 .example-card {
-    min-width: 220px;
-    height: 100%;
+    min-width: 252px;
+    height: 322px;
+}
+
+
+.igx-avatar {
+    background: #1096e4;
+    color: #fff;
 }
 
 /* .example-header-image {
@@ -218,6 +224,11 @@ mat-card-actions{
     justify-content: center;
 }
 
+mat-card-header{
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+}
+
 mat-card-actions button{
     width: 100%;
     background-color: #147EFB;
@@ -238,7 +249,7 @@ mat-card-content{
 }
 
 .doctors-container{
-    padding: 40px 0;
+    padding: 20px 0 20px 0;
     margin: 0 0 32px 0;
     display: flex;
     overflow-y: hidden;
@@ -247,7 +258,6 @@ mat-card-content{
     flex-direction: row;
     /* justify-content: flex-end; */
     width: auto;
-    height: 298px;
 }
 
 .content-menu{

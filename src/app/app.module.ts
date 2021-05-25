@@ -44,6 +44,16 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
+import { IgxAvatarModule } from "igniteui-angular";
+import { MatTabsModule } from '@angular/material/tabs';
+
+import {
+  IgxFilterModule,
+  IgxIconModule,
+  IgxListModule,
+  IgxInputGroupModule,
+  IgxButtonGroupModule
+} from "igniteui-angular";
 
 //componets imports
 import { UserHomeComponent } from './components/user-home/user-home.component';
@@ -59,7 +69,7 @@ import { UpdateProfileDialogComponent } from './dialogs/update-profile-dialog/up
 import { DoctorHomeComponent } from './components/doctor-home/doctor-home.component';
 import { FirebaseAuthService } from './service/firebase-auth.service';
 import { ChatService } from './service/chat.service';
-import { AppointmentsDataService } from './service/appointmentsData.service'
+import { AppointmentsDataService } from './service/appointmentsData.service';
 import { ImagePreviewComponent } from './dialogs/image-preview/image-preview.component';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MessengerAnimeDirective } from './directives/messenger-anime.directive';
@@ -73,6 +83,7 @@ import { HospitalComponent } from './components/hospital/hospital.component';
 import { BookAppointmentComponent } from './components/book-appointment/book-appointment.component';
 import { SkeletonLoaderModule } from './modules/skeleton-loader/skeleton-loader.module';
 import { ShowDoctorComponent } from './dialogs/show-doctor/show-doctor.component';
+import { StarRatingComponent } from './components/star-rating/star-rating.component';
 
 export function playerFactory() {
   return player;
@@ -103,7 +114,8 @@ export function playerFactory() {
     ChatDocBodyComponent,
     HospitalComponent,
     BookAppointmentComponent,
-    ShowDoctorComponent
+    ShowDoctorComponent,
+    StarRatingComponent
   ],
   imports: [
     BrowserModule,
@@ -128,14 +140,21 @@ export function playerFactory() {
     MatDividerModule,
     LayoutModule,
     MatNativeDateModule,
+    IgxFilterModule,
+    IgxIconModule,
+    IgxListModule,
+    IgxInputGroupModule,
+    IgxButtonGroupModule,
     MatMenuModule,
     ReactiveFormsModule,
+    MatTabsModule,
     MatRippleModule,
     MatSelectModule,
     MatDatepickerModule,
     MatStepperModule,
     NgProgressModule,
     SkeletonLoaderModule,
+    IgxAvatarModule,
     // NgxSpinnerModule,
     FormsModule,
     LottieModule.forRoot({ player: playerFactory }),
@@ -143,7 +162,7 @@ export function playerFactory() {
     MatProgressBarModule,
     MatProgressSpinnerModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule, // imports firebase/firestore, only needed for database features
+    AngularFirestoreModule,
     AngularFireAuthModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
@@ -157,7 +176,9 @@ export function playerFactory() {
   providers: [
     FirebaseAuthService,
     ChatService,
-    AppointmentsDataService],
+    AppointmentsDataService
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

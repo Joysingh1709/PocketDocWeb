@@ -129,9 +129,11 @@
         <mat-card class="example-card" *ngFor="let d of doctors; let i=index">
             <div class="top-card-content">
                 <mat-card-header>
-                    <div mat-card-avatar style="background-size: cover;"
-                        [style.background-image]="'url('+ d.profilePictureUrl + ')' "></div>
-                    <!-- d.profilePictureUrl -->
+                    <igx-avatar src="{{d.profilePictureUrl}}" [initials]="getInitials(d.name)" [roundShape]="true"
+                        size="small">
+                    </igx-avatar>
+                    <!-- <div mat-card-avatar style="background-size: cover;"
+                        [style.background-image]="'url('+ d.profilePictureUrl + ')' "></div> -->
                     <mat-card-title>{{d.name}}</mat-card-title>
                     <mat-card-subtitle>{{d.specializations}}</mat-card-subtitle>
                 </mat-card-header>

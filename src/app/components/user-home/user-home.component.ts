@@ -385,6 +385,41 @@ export class UserHomeComponent implements OnInit {
       })
   }
 
+  // getInitials(n: string): string {
+  //   // Since touuper() returns int,
+  //   // we do typecasting
+  //   var name = n.slice(3).toString();
+  //   var initial = "";
+  //   initial += name[0].toUpperCase().toString();
+
+  //   // Traverse rest of the string and
+  //   // print the characters after spaces.
+  //   for (let i = 1; i < name.length - 1; i++)
+  //     if (name[i] == ' ')
+  //       initial += name[i + 1].toUpperCase().toString();
+  //   console.log(initial);
+  //   return initial
+  // }
+
+  // randomStyleForAvatar() {
+  //   const style = {
+  //     'background-color': '#' + Math.floor(Math.random() * 16777215).toString(16),
+  //     'color': '#000'
+  //   };
+  //   return style
+  // }
+  getInitials(n): string {
+    var name = n.slice(3).toString();
+    var parts = name.split(' ');
+    var initials = '';
+    for (var i = 0; i < parts.length; i++) {
+      if (parts[i].length > 0 && parts[i] !== '') {
+        initials += parts[i][0]
+      }
+    }
+    return initials.toUpperCase()
+  }
+
   onChatOpen() {
     this.openChatFlag = !this.openChatFlag;
     this.navService.changeToggleData(false);
@@ -400,6 +435,7 @@ export class UserHomeComponent implements OnInit {
       // disableClose: true,
       backdropClass: 'bckdrop',
       width: "600px",
+      maxHeight: '80%',
       data: docData
     });
 

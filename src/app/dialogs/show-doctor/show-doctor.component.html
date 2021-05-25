@@ -1,10 +1,72 @@
-<div class="profile-picture">
-    <img src="{{data.profilePictureUrl}}" alt="{{data.name}}">
-</div>
+<igx-avatar class="av-size" src="{{data.profilePictureUrl}}" [initials]="getInitials(data.name)" [roundShape]="true"
+    size="large">
+</igx-avatar>
 
-<h2 mat-dialog-title>{{data.name}}</h2>
-<span></span>
+<h2 style="margin-bottom: 0; display: flex; align-items: center;" mat-dialog-title>
+    {{data.name}}
+    <mat-icon style="margin-left: 5px; color: #69f0ae;">verified_user</mat-icon>
+</h2>
+<h4 style="margin-bottom: 0;" class="mat-4 mat-caption">{{data.specializations}}</h4>
+
+<!-- <div class="rating">
+    <h4 style="margin-bottom: 0;">Rating : <strong>{{rating}}</strong></h4> -->
+<star-rating [rating]="rating" [editable]="false" [starCount]="starCount" (ratingUpdated)="onRatingChanged($event)">
+</star-rating>
+<!-- </div> -->
+
+<!-- <mat-divider></mat-divider> -->
+<!-- <p class="mat-body">{{data.about}}</p> -->
+<!-- <span></span> -->
 <mat-dialog-content class="mat-typography">
+
+    <mat-tab-group mat-align-tabs="start" style="max-height: 300px;">
+        <mat-tab label="Details">
+            <p style="padding: 20px 0 0 0;" class="mat-body">{{data.about}}</p>
+            <h3 class="mat-h3 mat-caption"><strong>{{data.exprience}}+</strong> Years of experience.</h3>
+            <mat-divider></mat-divider>
+        </mat-tab>
+        <mat-tab label="Contact">
+            <mat-list role="list">
+                <mat-list-item role="listitem" mat-ripple>
+                    <mat-icon mat-list-icon> location_on</mat-icon>
+                    <p class="mat-subheading-2">{{data.address}}</p>
+                </mat-list-item>
+                <mat-divider></mat-divider>
+                <mat-list-item role="listitem" mat-ripple>
+                    <mat-icon mat-list-icon> email</mat-icon>
+                    <p class="mat-subheading-2">{{data.email}}</p>
+                </mat-list-item>
+                <mat-divider></mat-divider>
+                <mat-list-item mat-ripple role="listitem">Item 3</mat-list-item>
+            </mat-list>
+        </mat-tab>
+        <mat-tab label="Reviews">
+            <igx-list style="overflow: auto;" [displayDensity]="density">
+                <igx-list-item igxRipple igxRippleTarget=".igx-list__item-content" #item *ngFor="let r of reviews;">
+                    <igx-avatar igxListThumbnail [src]="r.user.profilePictureUrl" roundShape="true"></igx-avatar>
+                    <span igxListLineTitle>{{ r.user.name }}</span>
+                    <span igxListLineSubTitle>{{ r.comment }}</span>
+                    <div igxListAction>
+                        <igx-icon *ngFor="let rating of arr; index as i" [id]="'star_'+i" igxListAction color="orange">
+                            {{showIcon(i,r.rating)}}
+                        </igx-icon>
+                        <!-- (click)="toggleFavorite(contact)" -->
+                    </div>
+                </igx-list-item>
+            </igx-list>
+            <!-- <div mat-subheader>Reviews</div>
+            <div class="review-box" *ngFor="let r of reviews">
+                <div class="profile">
+                    <igx-avatar style="width: 20px; height: 20px;" [src]="r.user.profilePictureUrl" size="small"
+                        [rounded]="true">
+                    </igx-avatar>
+                    <span class="mat-subheading-2">{{r.user.name}}</span>
+                </div> -->
+            <!-- <p mat-line class="mat-caption mat-subheading-1"> {{r.comment}} </p> -->
+            <!-- </div>
+            <mat-divider></mat-divider> -->
+        </mat-tab>
+    </mat-tab-group>
 
 </mat-dialog-content>
 <mat-dialog-actions align="end">
