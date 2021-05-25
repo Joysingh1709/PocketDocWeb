@@ -137,7 +137,7 @@ export class LoginComponent implements OnInit {
 
           switch (firebase.auth().currentUser.photoURL) {
             case "user":
-              this.router.navigate(['user']);
+              this.router.navigate(['user/home']);
               break;
 
             case "doctor":

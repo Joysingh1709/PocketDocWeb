@@ -3,7 +3,6 @@ import { FirebaseAuthService } from 'src/app/service/firebase-auth.service';
 import firebase from 'firebase/app';
 import 'firebase/storage';
 import { Router } from '@angular/router';
-import { AngularFireAuth } from '@angular/fire/auth';
 // import { Ng2ImgMaxService } from 'ng2-img-max';
 import { MatDialog } from '@angular/material/dialog';
 import { ChatService } from 'src/app/service/chat.service';
@@ -433,9 +432,11 @@ export class UserHomeComponent implements OnInit {
     const dialogRef = this.dialog.open(ShowDoctorComponent, {
       hasBackdrop: true,
       // disableClose: true,
+      closeOnNavigation: true,
       backdropClass: 'bckdrop',
       width: "600px",
-      maxHeight: '80%',
+      maxWidth: '85vw',
+      // maxHeight: '85vh',
       data: docData
     });
 

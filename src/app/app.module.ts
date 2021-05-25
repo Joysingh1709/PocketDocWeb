@@ -49,6 +49,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 
 import {
   IgxFilterModule,
+  IgxDividerModule,
   IgxIconModule,
   IgxListModule,
   IgxInputGroupModule,
@@ -84,6 +85,7 @@ import { BookAppointmentComponent } from './components/book-appointment/book-app
 import { SkeletonLoaderModule } from './modules/skeleton-loader/skeleton-loader.module';
 import { ShowDoctorComponent } from './dialogs/show-doctor/show-doctor.component';
 import { StarRatingComponent } from './components/star-rating/star-rating.component';
+import { UserMainComponent } from './components/user-main/user-main.component';
 
 export function playerFactory() {
   return player;
@@ -115,7 +117,8 @@ export function playerFactory() {
     HospitalComponent,
     BookAppointmentComponent,
     ShowDoctorComponent,
-    StarRatingComponent
+    StarRatingComponent,
+    UserMainComponent
   ],
   imports: [
     BrowserModule,
@@ -145,6 +148,7 @@ export function playerFactory() {
     IgxListModule,
     IgxInputGroupModule,
     IgxButtonGroupModule,
+    IgxDividerModule,
     MatMenuModule,
     ReactiveFormsModule,
     MatTabsModule,

@@ -27,7 +27,6 @@ export class AppComponent {
 
   mode: string = "side";
 
-  homeScreenLoader: string = "homeScreenLoader";
   hasBackdrop = false;
 
   fullUserData: any;
@@ -109,10 +108,6 @@ export class AppComponent {
       } else {
         this.stopLoading();
       }
-    });
-
-    this.toggleService.currentToggle.subscribe((val) => {
-      this.toggle = val;
     });
 
     this.toggleService.currentNavShow.subscribe((show) => {

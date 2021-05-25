@@ -14,10 +14,11 @@ import firebase from 'firebase';
 import { DoctorSignUpComponent } from './components/doctor-sign-up/doctor-sign-up.component';
 import { HospitalComponent } from './components/hospital/hospital.component';
 import { BookAppointmentComponent } from './components/book-appointment/book-appointment.component';
+import { UserMainComponent } from './components/user-main/user-main.component';
 
 // const role = firebase.auth().currentUser.photoURL;
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/login']);
-const redirectLoggedInToIUser = () => redirectLoggedInTo(['user']);
+const redirectLoggedInToIUser = () => redirectLoggedInTo(['user/home']);
 
 const routes: Routes = [
   {
@@ -54,12 +55,18 @@ const routes: Routes = [
   },
   {
     path: 'user',
-    component: UserHomeComponent,
+    component: UserMainComponent,
     canActivate: [AngularFireAuthGuard],
     data: { authGuardPipe: redirectUnauthorizedToLogin, role: 'user' },
     children: [
-      { path: 'profile-update', component: UpdateProfileComponent },
-      { path: 'book-Appointment', component: BookAppointmentComponent }
+      {
+        path: 'home',
+        component: UserHomeComponent
+      },
+      {
+        path: 'book-appointment/:id',
+        component: BookAppointmentComponent
+      }
     ]
   },
   {

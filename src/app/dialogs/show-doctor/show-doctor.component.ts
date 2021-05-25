@@ -1,7 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { StarRatingColor } from 'src/app/components/star-rating/star-rating.component';
+import { BreakpointObserver, MediaMatcher } from '@angular/cdk/layout';
 import firebase from 'firebase/app';
+import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
 
 @Component({
   selector: 'app-show-doctor',
@@ -12,6 +14,8 @@ export class ShowDoctorComponent implements OnInit {
 
   public density = 'cosy';
 
+  btnSelect: string = "online";
+
   arr = [1, 2, 3, 4, 5];
 
   rating: number = 3;
@@ -20,12 +24,23 @@ export class ShowDoctorComponent implements OnInit {
   starColorP: StarRatingColor = StarRatingColor.primary;
   starColorW: StarRatingColor = StarRatingColor.warn;
   reviews: any[] = [];
+  breakpointFlag: boolean = false;
 
-  constructor(dialogRef: MatDialogRef<ShowDoctorComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+  constructor(private dialogRef: MatDialogRef<ShowDoctorComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private router: Router,
+    private route: ActivatedRoute,
+    private breakpointObserver: BreakpointObserver) { }
 
   ngOnInit(): void {
-    console.log(this.data);
+    this.breakpointObserver.observe('(max-width: 599px)').subscribe((result) => {
+      console.log("Breakpoint Result : ", result)
+      if (result.matches) {
+        this.breakpointFlag = true;
+      } else {
+        this.breakpointFlag = false;
+      }
+    });
     this.rating = Number((this.data.rating.totalRating / this.data.rating.noOfRatings).toFixed());
     this.getAllReviews();
   }
@@ -77,8 +92,8 @@ export class ShowDoctorComponent implements OnInit {
       })
   }
 
-  getInitials(n): string {
-    var name = n.slice(3).toString();
+  getInitials(name): string {
+    // var name = n.slice(3).toString();
     var parts = name.split(' ');
     var initials = '';
     for (var i = 0; i < parts.length; i++) {
@@ -87,6 +102,12 @@ export class ShowDoctorComponent implements OnInit {
       }
     }
     return initials.toUpperCase()
+  }
+
+  onBook() {
+    this.router.navigate(['/user/book-appointment', this.data.doctorId], { state: this.data }).then(() => {
+      this.dialogRef.close();
+    });
   }
 
 }

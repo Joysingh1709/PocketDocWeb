@@ -26,50 +26,72 @@
             <mat-divider></mat-divider>
         </mat-tab>
         <mat-tab label="Contact">
-            <mat-list role="list">
-                <mat-list-item role="listitem" mat-ripple>
-                    <mat-icon mat-list-icon> location_on</mat-icon>
-                    <p class="mat-subheading-2">{{data.address}}</p>
-                </mat-list-item>
-                <mat-divider></mat-divider>
-                <mat-list-item role="listitem" mat-ripple>
-                    <mat-icon mat-list-icon> email</mat-icon>
-                    <p class="mat-subheading-2">{{data.email}}</p>
-                </mat-list-item>
-                <mat-divider></mat-divider>
-                <mat-list-item mat-ripple role="listitem">Item 3</mat-list-item>
-            </mat-list>
+            <!-- using igx -->
+            <igx-list style="overflow: auto;" displayDensity="cosy">
+                <igx-list-item igxRipple igxRippleTarget=".igx-list__item-content" #item>
+                    <igx-icon igxListThumbnail>location_on</igx-icon>
+                    <span igxListLineTitle>{{ data.address }}</span>
+                    <!-- <span igxListLineSubTitle>{{ data. }}</span> -->
+                </igx-list-item>
+
+                <igx-list-item igxRipple igxRippleTarget=".igx-list__item-content" #item>
+                    <igx-icon igxListThumbnail>email</igx-icon>
+                    <span igxListLineTitle>{{ data.email }}</span>
+                    <!-- <span igxListLineSubTitle>{{ r.comment }}</span> -->
+                </igx-list-item>
+
+                <igx-list-item igxRipple igxRippleTarget=".igx-list__item-content" #item>
+                    <igx-icon igxListThumbnail>phone</igx-icon>
+                    <span igxListLineTitle>+91 {{ data.phoneNo }}</span>
+                    <!-- <span igxListLineSubTitle>{{ r.comment }}</span> -->
+                </igx-list-item>
+            </igx-list>
         </mat-tab>
         <mat-tab label="Reviews">
             <igx-list style="overflow: auto;" [displayDensity]="density">
                 <igx-list-item igxRipple igxRippleTarget=".igx-list__item-content" #item *ngFor="let r of reviews;">
-                    <igx-avatar igxListThumbnail [src]="r.user.profilePictureUrl" roundShape="true"></igx-avatar>
-                    <span igxListLineTitle>{{ r.user.name }}</span>
-                    <span igxListLineSubTitle>{{ r.comment }}</span>
-                    <div igxListAction>
+                    <igx-avatar igxListThumbnail [initials]="getInitials(r.user.name)" [src]="r.user.profilePictureUrl"
+                        roundShape="true"></igx-avatar>
+                    <span *ngIf="!breakpointFlag" igxListLineTitle>{{ r.user.name }}</span>
+                    <span *ngIf="!breakpointFlag" igxListLineSubTitle>{{ r.comment }}</span>
+                    <div *ngIf="!breakpointFlag" igxListAction>
                         <igx-icon *ngFor="let rating of arr; index as i" [id]="'star_'+i" igxListAction color="orange">
                             {{showIcon(i,r.rating)}}
                         </igx-icon>
-                        <!-- (click)="toggleFavorite(contact)" -->
+                    </div>
+                    <div *ngIf="breakpointFlag">
+                        <div style="margin-left: 5px;" igxListLineTitle>{{ r.user.name }}</div>
+                        <div style="margin-left: 5px;" igxListLineSubTitle>{{ r.comment }}</div>
+                        <div igxListAction>
+                            <igx-icon *ngFor="let rating of arr; index as i" [id]="'star_'+i" igxListAction
+                                color="orange">
+                                {{showIcon(i,r.rating)}}
+                            </igx-icon>
+                        </div>
                     </div>
                 </igx-list-item>
             </igx-list>
-            <!-- <div mat-subheader>Reviews</div>
-            <div class="review-box" *ngFor="let r of reviews">
-                <div class="profile">
-                    <igx-avatar style="width: 20px; height: 20px;" [src]="r.user.profilePictureUrl" size="small"
-                        [rounded]="true">
-                    </igx-avatar>
-                    <span class="mat-subheading-2">{{r.user.name}}</span>
-                </div> -->
-            <!-- <p mat-line class="mat-caption mat-subheading-1"> {{r.comment}} </p> -->
-            <!-- </div>
-            <mat-divider></mat-divider> -->
         </mat-tab>
     </mat-tab-group>
+
+    <div class="button-sample">
+        <button [igxButtonColor]="btnSelect == 'online' ? '#fff' : '#147EFB'" (click)="btnSelect = 'online'"
+            [igxButtonBackground]="btnSelect == 'online' ? '#147EFB' : 'transparent'"
+            [igxButton]="btnSelect == 'online' ? 'raised' : 'outlined'" igxRipple="white">
+            Online
+        </button>
+        <button [igxButtonColor]="btnSelect == 'Offline' ? '#fff' : '#147EFB'" (click)="btnSelect = 'Offline'"
+            [igxButtonBackground]="btnSelect == 'Offline' ? '#147EFB' : 'transparent'"
+            [igxButton]="btnSelect == 'Offline' ? 'raised' : 'outlined'" igxRipple="white">
+            Offline
+        </button>
+    </div>
 
 </mat-dialog-content>
 <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close>Cancel</button>
-    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Book Appointment</button>
+    <button mat-button [ngStyle]="{'color': !data.status ? '#f44336' : ''}" (click)="onBook()" [disabled]="!data.status"
+        cdkFocusInitial>
+        {{!data.status ? 'Currently not available' : 'Book Appointment'}}
+    </button>
 </mat-dialog-actions>
