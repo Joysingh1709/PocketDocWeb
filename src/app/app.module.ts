@@ -46,6 +46,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
 import { IgxAvatarModule } from "igniteui-angular";
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 import {
   IgxFilterModule,
@@ -144,6 +145,7 @@ export function playerFactory() {
     LayoutModule,
     MatNativeDateModule,
     IgxFilterModule,
+    MatButtonToggleModule,
     IgxIconModule,
     IgxListModule,
     IgxInputGroupModule,

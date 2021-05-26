@@ -1,3 +1,48 @@
-<p>book-appointment works!</p>
+<div class="content-main-container">
+    <div class="igx-content-container">
+        <div class="profile-container">
+            <igx-avatar class="av-size-lg" [src]="data.profilePictureUrl" roundShape="true" size="large"></igx-avatar>
+            <div>
+                <h2 style="margin-bottom: 6px;" class="mat-title">
+                    {{data.name}}
+                </h2>
+                <h3 style="margin-bottom: 8px;" class="mat-body">{{data.specializations}}</h3>
+                <p style="margin: 0;" class="mat-caption">{{address}}</p>
+                <!-- <star-rating [rating]="rating" [editable]="false" [starCount]="starCount"
+                    (ratingUpdated)="onRatingChanged($event)">
+                </star-rating> -->
+            </div>
+        </div>
+        <br>
+        <igx-divider></igx-divider>
+        <br>
 
-<h2>{{data.doctorId}}</h2>
+        <div class="form-group">
+            <form novalidate class="input-group-form" [formGroup]="appointmentForm">
+
+                <div class="form-row">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Select a date</mat-label>
+                        <input matInput id="date" [min]="minDate" [matDatepickerFilter]="myFilter"
+                            formControlName="date" [max]="maxDate" [matDatepicker]="picker">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                    <!-- <mat-label for="avD">Available days</mat-label> -->
+                    <mat-button-toggle-group style="margin-top: .25rem;" id="avD" [ngModelOptions]="{standalone: true}"
+                        [(ngModel)]="daySelected">
+                        <mat-button-toggle [disabled]="!data.schedule.days.includes(i)" [ngStyle]="{'background-color': d.active ? '#147EFB' : '',
+                            'color': d.active ? '#fff' : ''}" *ngFor="let d of allDays; index as i" value="{{i}}">
+                            {{d.day}}
+                        </mat-button-toggle>
+                    </mat-button-toggle-group>
+
+                    <mat-form-field class="mg-t" appearance="outline" style="width: 100%;">
+                        <mat-label>Textarea</mat-label>
+                        <textarea matInput></textarea>
+                    </mat-form-field>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

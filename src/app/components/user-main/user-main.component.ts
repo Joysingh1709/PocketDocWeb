@@ -1,5 +1,5 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { NgProgress } from 'ngx-progressbar';
 import { FirebaseAuthService } from 'src/app/service/firebase-auth.service';
@@ -22,12 +22,17 @@ export class UserMainComponent implements OnInit {
   constructor(private toggleService: NavToggleService,
     private router: Router,
     private authService: FirebaseAuthService,
+    private cdr: ChangeDetectorRef,
     private windowScrollService: WindowScrollService,
     private progress: NgProgress,
     private breakpointObserver: BreakpointObserver) {
     this.toggleService.changeLoadingShowData(true);
   }
 
+  ngAfterViewInit(): void {
+    this.cdr.detectChanges();
+  }
+  
   ngOnInit(): void {
     this.breakpointObserver.observe('(max-width: 599px)').subscribe((result) => {
       if (result.matches) {

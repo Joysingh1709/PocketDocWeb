@@ -93,7 +93,6 @@ export class ShowDoctorComponent implements OnInit {
   }
 
   getInitials(name): string {
-    // var name = n.slice(3).toString();
     var parts = name.split(' ');
     var initials = '';
     for (var i = 0; i < parts.length; i++) {
