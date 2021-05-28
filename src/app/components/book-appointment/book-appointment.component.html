@@ -18,7 +18,7 @@
         <br>
 
         <div class="form-group">
-            <form novalidate class="input-group-form" [formGroup]="appointmentForm">
+            <form novalidate class="input-group-form" [formGroup]="appointmentForm" (ngSubmit)="onSubmit()">
 
                 <div class="form-row">
                     <mat-form-field class="example-full-width" appearance="outline">
@@ -41,8 +41,30 @@
                         <mat-label>Textarea</mat-label>
                         <textarea matInput></textarea>
                     </mat-form-field>
+
+                    <div class="button-sample">
+                        <button [igxButtonColor]="btnSelect == 'online' ? '#fff' : '#147EFB'"
+                            (click)="btnSelect = 'online'"
+                            [igxButtonBackground]="btnSelect == 'online' ? '#147EFB' : 'transparent'"
+                            [igxButton]="btnSelect == 'online' ? 'raised' : 'outlined'" igxRipple="white">
+                            Online
+                        </button>
+                        <button [igxButtonColor]="btnSelect == 'Offline' ? '#fff' : '#147EFB'"
+                            (click)="btnSelect = 'Offline'"
+                            [igxButtonBackground]="btnSelect == 'Offline' ? '#147EFB' : 'transparent'"
+                            [igxButton]="btnSelect == 'Offline' ? 'raised' : 'outlined'" igxRipple="white">
+                            Offline
+                        </button>
+                    </div>
+
+                    <div class="amount">
+                        <h3 class="mat-h3">Payable amount : &#8377;{{cost}}</h3>
+                    </div>
                 </div>
             </form>
         </div>
+    </div>
+    <div class="btn-container">
+        <button type="submit" (click)="onSubmit()" mat-button class="confirm-btn">Confirm Booking</button>
     </div>
 </div>

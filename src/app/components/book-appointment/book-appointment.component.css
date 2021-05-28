@@ -1,5 +1,5 @@
 .content-main-container {
-    padding: 40px;
+    padding: 40px 40px 40px 40px;
     display: flex;
     flex-direction: column;
     width: auto;
@@ -9,6 +9,8 @@
 .igx-content-container{
     box-shadow: var(--igx-elevation-2);
     border-radius: 8px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
     padding: 20px;
 }
 
@@ -33,6 +35,16 @@
     flex-wrap: wrap;
     align-items: flex-start;
     height: auto;
+}
+
+.confirm-btn{
+    width: 100%;
+    background-color: #147EFB;
+    color: #fff;
+    position: relative;
+    border-top-left-radius: 0px;
+    box-shadow: var(--igx-elevation-2);
+    border-top-right-radius: 0px;
 }
 
 @media (max-width: 599px) {

@@ -29,10 +29,6 @@ export class UserMainComponent implements OnInit {
     this.toggleService.changeLoadingShowData(true);
   }
 
-  ngAfterViewInit(): void {
-    this.cdr.detectChanges();
-  }
-  
   ngOnInit(): void {
     this.breakpointObserver.observe('(max-width: 599px)').subscribe((result) => {
       if (result.matches) {

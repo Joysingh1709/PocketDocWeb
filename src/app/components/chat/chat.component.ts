@@ -44,25 +44,24 @@ export class ChatComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.afAuth.onAuthStateChanged(async (user) => {
-      this.userID = user.uid;
-      this.user = user.photoURL;
-      console.log(this.userID);
+    var user = firebase.auth().currentUser;
+    this.userID = user.uid;
+    this.user = user.photoURL;
+    console.log(this.userID);
 
-      firebase.firestore().collection('chatRooms')
-        .where("userId", "==", user.uid)
-        .orderBy('lastUpdatedDate', 'desc')
-        .onSnapshot(querysnapshot => {
-          const thread = querysnapshot.docs.map(docSnap => {
-            return docSnap.data();
-          })
-          this.profiles = thread;
-          // this.profiles.forEach((ele) => {
-          //   console.log(new Date(ele.lastUpdatedDate));
-          // })
-          console.log(this.profiles);
+    firebase.firestore().collection('chatRooms')
+      .where("userId", "==", user.uid)
+      .orderBy('lastUpdatedDate', 'desc')
+      .onSnapshot(querysnapshot => {
+        const thread = querysnapshot.docs.map(docSnap => {
+          return docSnap.data();
         })
-    });
+        this.profiles = thread;
+        // this.profiles.forEach((ele) => {
+        //   console.log(new Date(ele.lastUpdatedDate));
+        // })
+        console.log(this.profiles);
+      })
   }
 
   onChatSelect(i) {

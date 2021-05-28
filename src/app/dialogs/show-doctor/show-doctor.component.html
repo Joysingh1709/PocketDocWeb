@@ -74,19 +74,6 @@
         </mat-tab>
     </mat-tab-group>
 
-    <div class="button-sample">
-        <button [igxButtonColor]="btnSelect == 'online' ? '#fff' : '#147EFB'" (click)="btnSelect = 'online'"
-            [igxButtonBackground]="btnSelect == 'online' ? '#147EFB' : 'transparent'"
-            [igxButton]="btnSelect == 'online' ? 'raised' : 'outlined'" igxRipple="white">
-            Online
-        </button>
-        <button [igxButtonColor]="btnSelect == 'Offline' ? '#fff' : '#147EFB'" (click)="btnSelect = 'Offline'"
-            [igxButtonBackground]="btnSelect == 'Offline' ? '#147EFB' : 'transparent'"
-            [igxButton]="btnSelect == 'Offline' ? 'raised' : 'outlined'" igxRipple="white">
-            Offline
-        </button>
-    </div>
-
 </mat-dialog-content>
 <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close>Cancel</button>

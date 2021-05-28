@@ -14,8 +14,6 @@ export class ShowDoctorComponent implements OnInit {
 
   public density = 'cosy';
 
-  btnSelect: string = "online";
-
   arr = [1, 2, 3, 4, 5];
 
   rating: number = 3;

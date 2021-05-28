@@ -19,6 +19,8 @@ export class BookAppointmentComponent implements OnInit {
   minDate: Date = new Date();
   maxDate: Date;
 
+  cost: number = 0;
+
   allDays = [
     { day: "SUN", active: false },
     { day: "MON", active: false },
@@ -36,7 +38,9 @@ export class BookAppointmentComponent implements OnInit {
   timeSlots: any;
   rating: number;
 
-  starCount: number = 5;
+  btnSelect: string = "online";
+
+  starCount: number = 0;
 
   fontStyleControl = new FormControl();
   fontStyle?: string;
@@ -69,6 +73,7 @@ export class BookAppointmentComponent implements OnInit {
     console.log(this.data);
     this.rating = Number((this.data.rating.totalRating / this.data.rating.noOfRatings).toFixed());
     this.address = this.data.address + ', ' + (this.data.city === '' ? '' : this.data.city + ', ') + (this.data.state === '' ? '' : this.data.state + ', ') + this.data.pincode + (this.data.landmark === '' ? '' : ', near ' + this.data.landmark);
+    this.cost = this.data.fee.online;
 
     this.appointmentForm = this.fb.group({
       dateCreated: [firebase.firestore.Timestamp.now()],
@@ -108,46 +113,47 @@ export class BookAppointmentComponent implements OnInit {
     console.log(rt);
   }
 
-  // bookAppointment() {
-  //   if (this.data.schedule.days.includes(this.appointmentDate.getDay())) {
-  //     if (yourProblem.length === 0 || yourProblem.length > 240) {
-  //       setyourProblemError(true)
-  //       return;
-  //     }
+  onSubmit() {
+    console.log(this.appointmentForm.value);
+    //   if (this.data.schedule.days.includes(this.appointmentDate.getDay())) {
+    //     if (yourProblem.length === 0 || yourProblem.length > 240) {
+    //       setyourProblemError(true)
+    //       return;
+    //     }
 
-  //     setinBooking(true)
+    //     setinBooking(true)
 
-  //     const appointmentData = {
-  //       dateCreated: firestore.Timestamp.now(),
-  //       dateUpdated: firestore.Timestamp.now(),
-  //       doctorId: data.doctorId,
-  //       appointmentDocs: [],
-  //       prescription: [],
-  //       problem: yourProblem,
-  //       status: 'pending',
-  //       time: firestore.Timestamp.fromDate(new Date(`${appointmentDate.toLocaleDateString()} ${data.schedule.slots[selectedTimeSlot].start.toDate().toLocaleTimeString()}`)),
-  //       type: appointmentMode,
-  //       userId: auth().currentUser.uid
-  //     }
+    //     const appointmentData = {
+    //       dateCreated: firestore.Timestamp.now(),
+    //       dateUpdated: firestore.Timestamp.now(),
+    //       doctorId: data.doctorId,
+    //       appointmentDocs: [],
+    //       prescription: [],
+    //       problem: yourProblem,
+    //       status: 'pending',
+    //       time: firestore.Timestamp.fromDate(new Date(`${appointmentDate.toLocaleDateString()} ${data.schedule.slots[selectedTimeSlot].start.toDate().toLocaleTimeString()}`)),
+    //       type: appointmentMode,
+    //       userId: auth().currentUser.uid
+    //     }
 
-  //     firestore().collection('appointments').add(appointmentData)
-  //       .then(value => {
-  //         setbookedAppointmentId(value.id);
+    //     firestore().collection('appointments').add(appointmentData)
+    //       .then(value => {
+    //         setbookedAppointmentId(value.id);
 
-  //         setinBooking(false);
-  //         setbooked(true);
-  //       })
-  //       .catch(err => {
-  //         console.log(err);
-  //         setinBooking(false)
-  //         ToastAndroid.show("Unable to book appointment at the moment due to some err");
-  //       })
+    //         setinBooking(false);
+    //         setbooked(true);
+    //       })
+    //       .catch(err => {
+    //         console.log(err);
+    //         setinBooking(false)
+    //         ToastAndroid.show("Unable to book appointment at the moment due to some err");
+    //       })
 
-  //   }
-  //   else {
-  //     console.log(`${data.name} is not available on ${allDays[appointmentDate.getDay()]}. See available days for booking.`);
-  //   }
+    //   }
+    //   else {
+    //     console.log(`${data.name} is not available on ${allDays[appointmentDate.getDay()]}. See available days for booking.`);
+    //   }
 
-  // }
+  }
 
 }
