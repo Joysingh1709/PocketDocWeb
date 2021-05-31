@@ -1,0 +1,64 @@
+<div class="content-main-container">
+    <div class="igx-content-container">
+
+        <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="20" *ngIf="data && doctorData">
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20">
+                <igx-avatar [src]="doctorData.profilePictureUrl" [roundShape]="true"
+                    style="border-radius: 30px; width: 120px; height: 120px; margin-right: 20px;" size="large">
+                </igx-avatar>
+                <div fxLayout="column" fxLayoutAlign="space-around">
+                    <div fxLayout="row" fxLayoutAlign="start center" class="mat-title">
+                        {{doctorData.name}}
+                        <igx-icon style="color: #69f0ae; margin-left: 5px;">verified_user</igx-icon>
+                    </div>
+                    <div class="mat-body">{{doctorData.specializations}}</div>
+                </div>
+            </div>
+
+            <mat-chip #chip class="pending" style="color: #fff;" selected>Pending</mat-chip> -->
+        </div>
+        <div *ngIf="data && doctorData" fxLayout.lg="row" fxLayout.md="row" fxLayout.sm="column" fxLayout.xs="column"
+            fxLayoutAlign="space-between" class="mat-caption">
+            <p class="mat-caption" fxLayoutGap="10px" style="color: rgb(114 114 114); margin: 14px 0 0; display: flex;">
+                <igx-icon style="font-size: 1.2rem;">access_time</igx-icon>
+                {{data.time.toDate() | date: 'EEE MMM d, y, h:mm:ss a'}}
+            </p>
+            <p class="mat-caption" style="color: rgb(114 114 114); margin: 14px 0 0;">
+                Appointment Id : {{appointmentId}}
+            </p>
+        </div>
+        <mat-divider style="margin-bottom: 20px !important;"></mat-divider>
+
+        <div class="appoitnment-main" *ngIf="data && doctorData">
+            <div class="problem-box">
+                <div class="mat-title" style="font-size: 18px; margin: 0 0 6px;">Problem :</div>
+                {{data.problem}}
+
+                <div class="mat-title" style="font-size: 18px; margin: 0 0 6px;">Appointment date & time :</div>
+                This appointment is fixed at {{data.time.toDate() | date: 'EEE MMM d, y h:mm a'}}
+
+                <div class="mat-title" style="font-size: 18px; margin: 0 0 6px;">Mode : {{data.type}}</div>
+
+                <div class="mat-title" style="font-size: 18px; margin: 0 0 6px;">Appointment booked on :</div>
+                This appointment was booked on {{data.dateCreated.toDate() | date: 'MMM d, y h:mm a'}}
+            </div>
+            <!-- <div class="mat-body" style="font-size: 18px; margin-top: 20px;">
+                This appointment is fixed at 12 o'clock on Fri 12:34 PM, as soon as the doctor will accept the
+                appointment, you can consult them through chat.
+            </div> -->
+            <div class="add-prescription" fxLayout="row" fxLayoutAlign="space-between center">
+                <div>
+                    <button mat-fab style="color: #fff; background-color: #147EFB;"
+                        aria-label="Example icon button with a home icon">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                    <span style="margin-left: 20px;" class="mat-body">Add Reports</span>
+                </div>
+
+                <div class="mat-action">
+                    <button mat-button style="color: #fff; background-color: #147EFB;">Open chat</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -40,6 +40,17 @@ export class UserMainComponent implements OnInit {
       }
     });
 
+    // this.router.events.subscribe((e) => {
+    //   if (e instanceof NavigationEnd) {
+    //     this.activeUrl = e.urlAfterRedirects || e.url;
+    //     console.warn(e);
+    //     console.log(this.activeUrl);
+    //     if (this.activeUrl === '/user') {
+    //       // this.router.navigateByUrl('/user/home');
+    //     }
+    //   }
+    // });
+
     this.toggleService.currentToggle.subscribe((val) => {
       this.toggle = val;
     });

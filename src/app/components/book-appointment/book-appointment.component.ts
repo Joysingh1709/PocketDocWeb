@@ -1,6 +1,7 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import firebase from 'firebase/app';
 import { NavToggleService } from 'src/app/service/nav-toggle.service';
@@ -34,7 +35,6 @@ export class BookAppointmentComponent implements OnInit {
 
   appointmentForm: FormGroup;
 
-  selectedTimeSlot: any;
   timeSlots: any;
   rating: number;
 
@@ -47,9 +47,16 @@ export class BookAppointmentComponent implements OnInit {
   daySelected: number;
   breakpointFlag: boolean = false;
 
+  public configSucces: MatSnackBarConfig = {
+    panelClass: ['style-snack'],
+    duration: 4000,
+    horizontalPosition: 'center',
+    verticalPosition: 'top'
+  };
 
   constructor(private router: Router,
     private fb: FormBuilder,
+    private _snackBar: MatSnackBar,
     private breakpointObserver: BreakpointObserver,
     private navandtoggleService: NavToggleService) {
     this.navandtoggleService.changeLoadingShowData(true);
@@ -76,16 +83,9 @@ export class BookAppointmentComponent implements OnInit {
     this.cost = this.data.fee.online;
 
     this.appointmentForm = this.fb.group({
-      dateCreated: [firebase.firestore.Timestamp.now()],
-      dateUpdated: [firebase.firestore.Timestamp.now()],
-      doctorId: [this.data.doctorId],
-      appointmentDocs: [],
-      prescription: [],
-      problem: [''],
-      status: ['pending'],
-      date: [new Date(), [Validators.required]],
-      // time: [firebase.firestore.Timestamp.fromDate(new Date(`${this.appointmentDate.toLocaleDateString()} ${this.data.schedule.slots[this.selectedTimeSlot].start.toDate().toLocaleTimeString()}`))],
-      type: ['online'],
+      problem: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(240)]],
+      time: [new Date(), [Validators.required]],
+      selectedTimeSlot: [],
       userId: [firebase.auth().currentUser.uid]
     });
 
@@ -98,7 +98,7 @@ export class BookAppointmentComponent implements OnInit {
       }
     });
 
-    this.appointmentForm.get('date').valueChanges.subscribe((val) => {
+    this.appointmentForm.get('time').valueChanges.subscribe((val) => {
 
       this.allDays.forEach((v, i) => {
         val.getDay() == i ? v.active = true : v.active = false;
@@ -108,52 +108,52 @@ export class BookAppointmentComponent implements OnInit {
     this.navandtoggleService.changeLoadingShowData(false);
   }
 
-
-  onRatingChanged(rt) {
-    console.log(rt);
+  onTypeChange(type: string) {
+    this.btnSelect = type;
+    console.log(this.data.fee[type]);
+    this.cost = this.data.fee[type];
   }
 
   onSubmit() {
-    console.log(this.appointmentForm.value);
-    //   if (this.data.schedule.days.includes(this.appointmentDate.getDay())) {
-    //     if (yourProblem.length === 0 || yourProblem.length > 240) {
-    //       setyourProblemError(true)
-    //       return;
-    //     }
+    console.log(this.appointmentForm.valid);
+    this.router.navigate(['/user/appointment', firebase.auth().currentUser.uid]);
+    if (this.appointmentForm.valid) {
+      if (this.data.schedule.days.includes(this.appointmentForm.get("time").value.getDay())) {
 
-    //     setinBooking(true)
+        const appointmentData = {
+          dateCreated: firebase.firestore.Timestamp.now(),
+          dateUpdated: firebase.firestore.Timestamp.now(),
+          doctorId: this.data.doctorId,
+          appointmentDocs: [],
+          prescription: [],
+          problem: this.appointmentForm.get("problem").value,
+          status: 'pending',
+          time: firebase.firestore.Timestamp.fromDate(new Date(`${this.appointmentForm.get("time").value.toLocaleDateString()} ${this.data.schedule.slots[this.appointmentForm.get("selectedTimeSlot").value].start.toDate().toLocaleTimeString()}`)),
+          type: this.btnSelect,
+          userId: firebase.auth().currentUser.uid
+        }
 
-    //     const appointmentData = {
-    //       dateCreated: firestore.Timestamp.now(),
-    //       dateUpdated: firestore.Timestamp.now(),
-    //       doctorId: data.doctorId,
-    //       appointmentDocs: [],
-    //       prescription: [],
-    //       problem: yourProblem,
-    //       status: 'pending',
-    //       time: firestore.Timestamp.fromDate(new Date(`${appointmentDate.toLocaleDateString()} ${data.schedule.slots[selectedTimeSlot].start.toDate().toLocaleTimeString()}`)),
-    //       type: appointmentMode,
-    //       userId: auth().currentUser.uid
-    //     }
+        firebase.firestore().collection('appointments').add(appointmentData)
+          .then(value => {
+            this.router.navigate(['/user/appointment', value.id]);
+          })
+          .catch(err => {
+            console.log(err);
+          })
 
-    //     firestore().collection('appointments').add(appointmentData)
-    //       .then(value => {
-    //         setbookedAppointmentId(value.id);
+        console.log(appointmentData);
 
-    //         setinBooking(false);
-    //         setbooked(true);
-    //       })
-    //       .catch(err => {
-    //         console.log(err);
-    //         setinBooking(false)
-    //         ToastAndroid.show("Unable to book appointment at the moment due to some err");
-    //       })
+      }
+      else {
+        this.openSnackBar(`${this.data.name} is not available on ${this.allDays[this.appointmentForm.get("time").value.getDay()].day}. See available days for booking.`, "Try again");
+      }
 
-    //   }
-    //   else {
-    //     console.log(`${data.name} is not available on ${allDays[appointmentDate.getDay()]}. See available days for booking.`);
-    //   }
+    }
 
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, this.configSucces);
   }
 
 }

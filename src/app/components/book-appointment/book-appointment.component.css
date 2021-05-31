@@ -1,5 +1,5 @@
 .content-main-container {
-    padding: 40px 40px 40px 40px;
+    padding: 40px 40px 0 40px;
     display: flex;
     flex-direction: column;
     width: auto;
@@ -37,6 +37,11 @@
     height: auto;
 }
 
+.button-sample{
+    gap: 20px;
+    display: flex;
+}
+
 .confirm-btn{
     width: 100%;
     background-color: #147EFB;
@@ -47,6 +52,10 @@
     border-top-right-radius: 0px;
 }
 
+.amount{
+    padding-top: 5px;
+}
+
 @media (max-width: 599px) {
     ::ng-deep.mat-button-toggle-appearance-standard .mat-button-toggle-label-content{
         padding: 0 8px !important;
@@ -54,7 +63,7 @@
 
     .content-main-container {
         margin-top: 16px;
-        padding: 14px;
+        padding: 14px 14px 0 14px;
     }
     .mg-t{
         margin-top: 20px;

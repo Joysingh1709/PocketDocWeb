@@ -15,6 +15,7 @@ import { DoctorSignUpComponent } from './components/doctor-sign-up/doctor-sign-u
 import { HospitalComponent } from './components/hospital/hospital.component';
 import { BookAppointmentComponent } from './components/book-appointment/book-appointment.component';
 import { UserMainComponent } from './components/user-main/user-main.component';
+import { AppointmentViewComponent } from './components/appointment-view/appointment-view.component';
 
 // const role = firebase.auth().currentUser.photoURL;
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/login']);
@@ -57,7 +58,7 @@ const routes: Routes = [
     path: 'user',
     component: UserMainComponent,
     canActivate: [AngularFireAuthGuard],
-    data: { authGuardPipe: redirectUnauthorizedToLogin, role: 'user' },
+    data: { authGuardPipe: redirectUnauthorizedToLogin },
     children: [
       {
         path: 'home',
@@ -66,6 +67,10 @@ const routes: Routes = [
       {
         path: 'book-appointment/:id',
         component: BookAppointmentComponent
+      },
+      {
+        path: 'appointment/:id',
+        component: AppointmentViewComponent
       }
     ]
   },

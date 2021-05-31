@@ -53,8 +53,18 @@
 }
 
 .nav-brand{
+    cursor: pointer;
     font-size: 1.2rem;
     margin-left: 10px;
+}
+
+mat-toolbar{
+    background-color: #147EFB;   
+    color: #ffffff;
+}
+
+.example-spacer {
+    flex: 1 1 auto;
 }
 
 .nav-left{
@@ -63,6 +73,10 @@
     align-items: center;        
     width: 40%;
     height: 100%;
+}
+
+.nav-left img {
+    cursor: pointer;
 }
 
 .nav-logo{

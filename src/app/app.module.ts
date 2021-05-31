@@ -47,6 +47,7 @@ import { MatCardModule } from '@angular/material/card';
 import { IgxAvatarModule } from "igniteui-angular";
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 import {
   IgxFilterModule,
@@ -56,6 +57,8 @@ import {
   IgxInputGroupModule,
   IgxButtonGroupModule
 } from "igniteui-angular";
+
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 //componets imports
 import { UserHomeComponent } from './components/user-home/user-home.component';
@@ -87,6 +90,7 @@ import { SkeletonLoaderModule } from './modules/skeleton-loader/skeleton-loader.
 import { ShowDoctorComponent } from './dialogs/show-doctor/show-doctor.component';
 import { StarRatingComponent } from './components/star-rating/star-rating.component';
 import { UserMainComponent } from './components/user-main/user-main.component';
+import { AppointmentViewComponent } from './components/appointment-view/appointment-view.component';
 
 export function playerFactory() {
   return player;
@@ -119,7 +123,8 @@ export function playerFactory() {
     BookAppointmentComponent,
     ShowDoctorComponent,
     StarRatingComponent,
-    UserMainComponent
+    UserMainComponent,
+    AppointmentViewComponent
   ],
   imports: [
     BrowserModule,
@@ -153,6 +158,7 @@ export function playerFactory() {
     IgxDividerModule,
     MatMenuModule,
     ReactiveFormsModule,
+    MatToolbarModule,
     MatTabsModule,
     MatRippleModule,
     MatSelectModule,
@@ -161,6 +167,7 @@ export function playerFactory() {
     NgProgressModule,
     SkeletonLoaderModule,
     IgxAvatarModule,
+    FlexLayoutModule,
     // NgxSpinnerModule,
     FormsModule,
     LottieModule.forRoot({ player: playerFactory }),

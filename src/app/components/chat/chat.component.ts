@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import firebase from 'firebase/app';
@@ -39,8 +39,13 @@ export class ChatComponent implements OnInit {
   constructor(private fireService: FirebaseAuthService,
     private afAuth: AngularFireAuth,
     private db: AngularFirestore,
+    private cdRef: ChangeDetectorRef,
     private chatService: ChatService,) {
     this.fullUserData = this.userData;
+  }
+
+  ngAfterViewInit(): void {
+    this.cdRef.detectChanges();
   }
 
   ngOnInit() {
@@ -61,7 +66,7 @@ export class ChatComponent implements OnInit {
         //   console.log(new Date(ele.lastUpdatedDate));
         // })
         console.log(this.profiles);
-      })
+      });
   }
 
   onChatSelect(i) {
@@ -89,7 +94,7 @@ export class ChatComponent implements OnInit {
 
         // });
         // this.load = true;
-      })
+      });
     this.chatOpenFlag = true;
   }
 

@@ -1,0 +1,80 @@
+.content-main-container {
+    padding: 40px 40px 0 40px;
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    min-height: 100vh;
+}
+
+.igx-content-container{
+    padding: 20px;
+    box-shadow: var(--igx-elevation-2);
+    border-radius: 8px;
+    /* border-bottom-left-radius: 0px; */
+    background-color: #fff;
+    /* border-bottom-right-radius: 0px; */
+}
+
+.problem-box{
+    padding: 20px;
+    background-color: #4897f10c;
+    border-radius: 15px;
+}
+
+.add-prescription{
+    padding-top: 20px;
+}
+
+.loader {
+    position: relative;
+    background-color: rgb(224, 224, 224);
+    /* width: 200px; */
+    /* height: 20px; */
+    overflow: hidden;
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+
+.accepted {
+    background-color: #69f0ae !important;
+}
+
+.pending {
+    background-color: #f0e769 !important;
+}
+
+.declined {
+    background-color: #f44336 !important;
+}
+
+.skel{
+    padding: 4px;
+    color: #fff;
+}
+
+.loader::after {
+    display: block;
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    transform: translateX(-100%);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .4), transparent);
+    animation: loading 1s infinite;
+}
+
+@keyframes loading {
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+@media (max-width: 599px) {
+
+    .content-main-container {
+        margin-top: 16px;
+        padding: 14px 14px 0 14px;
+    }
+}

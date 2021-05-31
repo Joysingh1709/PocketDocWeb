@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FirebaseAuthService } from 'src/app/service/firebase-auth.service';
 import firebase from 'firebase/app';
 import 'firebase/storage';
@@ -21,7 +21,8 @@ import { ShowDoctorComponent } from 'src/app/dialogs/show-doctor/show-doctor.com
   animations: [
     chatAnime(),
     exapnButton()
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class UserHomeComponent implements OnInit {
 
@@ -421,7 +422,7 @@ export class UserHomeComponent implements OnInit {
 
   onChatOpen() {
     this.openChatFlag = !this.openChatFlag;
-    this.navService.changeToggleData(false);
+    this.breakpointFlag ? this.navService.changeToggleData(false) : null;
   }
 
   onChatClose($event) {

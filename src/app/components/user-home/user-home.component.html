@@ -45,8 +45,8 @@
 
         </div>
 
-        <div *ngIf="apts.length === 0 && !appointmentLoading" class="no-appointments-msg">You haven't booked any
-            appointment yet</div>
+        <div *ngIf="apts.length === 0 && !appointmentLoading" class="no-appointments-msg">
+            You haven't booked any appointment yet</div>
 
         <div *ngIf="appointmentLoading" class="inner-exp-container">
             <div class="inner-exp-content">
@@ -55,10 +55,6 @@
             </div>
 
             <div class="inner-exp-content-end">
-                <!-- <div class="date-time-mob" *ngIf="breakpointFlag">
-                    <mat-icon>access_time</mat-icon> {{parseDate(a.time)}}
-                </div> -->
-
                 <skeleton-loader Cwidth="250px" Cheight="20px"></skeleton-loader>
             </div>
         </div>
@@ -68,18 +64,13 @@
                 <skeleton-loader Cwidth="150px" Cheight="20px"></skeleton-loader>
                 <skeleton-loader Cwidth="200px" Cheight="14px"></skeleton-loader>
             </div>
-
             <div class="inner-exp-content-end">
-                <!-- <div class="date-time-mob" *ngIf="breakpointFlag">
-                    <mat-icon>access_time</mat-icon> {{parseDate(a.time)}}
-                </div> -->
-
                 <skeleton-loader Cwidth="250px" Cheight="20px"></skeleton-loader>
             </div>
         </div>
 
 
-        <div class="inner-exp-container" *ngFor="let a of apts; let i=index">
+        <div class="inner-exp-container" *ngFor="let a of apts; let i=index" [routerLink]="['/user/appointment', a.id]">
             <div class="inner-exp-content">
                 <div class="dr-name">{{a.doctorData.name}} <span>({{a.doctorData.specializations}})</span></div>
                 <div class="dr-prob">{{a.problem}}</div>
